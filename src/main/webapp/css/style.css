@@ -158,7 +158,7 @@
 			
 			height:100vh;
 			width:100%;
-			background-image:url(img/sfondo.png);
+			background-image:url(../img/sfondo.png);
 			background-size:cover;
 			background-position:0 -10vh;
 			background-repeat:no-repeat;
