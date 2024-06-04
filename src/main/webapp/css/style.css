@@ -1,0 +1,192 @@
+		*{
+			margin:0;
+			padding:0;
+			box-size:border-box;
+			font-size:10px;
+			font-family:"Poppins";
+			font-style:normal;
+			font-weight:500;
+			user-select: none;
+		}
+	
+		body{
+			width:100vw;
+			max-width:100vw;
+			height:200vh;
+			overflow-x:hidden;
+		}
+		
+		header{
+			width:100%;
+			height:10vh;
+			background-color:black;
+			display:flex;
+			justify-content:space-between;
+			align-items:center;
+			position:fixed;
+		}
+		
+		header .logo_nav{
+			width:60%;
+			height:100%;
+			margin-left:5vw;
+			display:flex;
+			gap:5%;
+			justify-content:left;
+			align-items: center;
+		}
+		
+		header .logo_nav .logo{
+			height:100%;
+			aspect-ratio:2/1;
+			display:flex;
+			justify-content:center;
+			align-items: center;
+			cursor:pointer;
+			transition:0.3s;
+		}
+		
+		header .logo_nav .logo img{
+			width:100%;
+			transition:0.3s;
+		}
+		header .logo_nav .logo:hover{
+			transform: rotate(-10deg);
+		}
+		
+		header .logo_nav .nav{
+			flex:1;
+			height:100%;
+			display:flex;
+			gap:5%;
+			justify-content:left;
+			align-items: center;
+		}
+		
+		header .logo_nav .nav span{
+			color:white;
+			font-size:1.7em;
+			position:relative;
+			cursor:pointer;
+		}
+		
+		header .logo_nav .nav span::after, header .logo_nav .nav .selected::after{
+			content:"";
+			position:absolute;
+			bottom:-4px;
+			left:50%;
+			transition: 0.4s;
+			width:0;
+			height: 4px;
+			border-radius: 4px;
+
+		}
+		
+		header .logo_nav .nav .selected::after{
+			width:100%;
+			left:0;
+			background-color:white;
+		}
+		
+		header .logo_nav .nav span:hover::after{
+			width:100%;
+			left:0;
+			background-color:rgba(255, 255, 255, 0.8);
+		}
+		
+		header .logo_nav .nav .selected{
+			font-weight:900;
+			
+		}
+		
+		header .cerca_account{
+			width:25%;
+			height:100%;
+			margin-right:5vw;
+			display:flex;
+			gap:5%;
+			justify-content:right;
+			align-items: center;
+
+		}
+		
+		header .cerca_account .account{
+		
+			height:40%;
+			aspect-ratio:1/1;
+			cursor:pointer;
+		}
+		
+		header .cerca_account .account img{
+			width:100%;
+			color:white;
+		
+		}
+		
+		
+		header .cerca_account .cerca{
+			flex:1;
+			height:100%;
+			display:flex;
+			justify-content:right;
+			align-items: center;
+		}
+		
+		header .cerca_account .cerca input{
+			border:2px solid rgba(255,255,255,0);
+			padding:0 0 0 1em;
+			width:80%;
+			height:40%;
+			border-radius: 0.7em;
+			font-size:1.6em;
+			background-color:rgba(255,255,255,0.3);
+			color:white;
+			transition:0.3s;
+		}
+		
+		header .cerca_account .cerca input:hover{
+			border-radius:1em;
+			border:2px solid white;
+		}
+		
+		header .cerca_account .cerca input::placeholder{
+			color:white;
+			text-align:center;
+		}
+		
+		main .allScreen{
+			
+			height:100vh;
+			width:100%;
+			background-image:url(img/sfondo.png);
+			background-size:cover;
+			background-position:0 -10vh;
+			background-repeat:no-repeat;
+			display:flex;
+			justify-content:center;
+			align-items:center;
+		
+		}
+		
+		.allScreen .logoCentrale span{
+			color: rgba(255,255,255,0);
+			-webkit-text-stroke:9px black;
+			font-size:17em;
+			transition:0.3s;
+		}
+		
+		.allScreen .logoCentrale #my{
+			-webkit-text-stroke:9px white;
+		
+		}
+		
+		.allScreen .logoCentrale:hover{
+			letter-spacing:1em;
+		
+		}
+		main .unTerzoScreen{
+			
+			height:33vh;
+			width:100%;
+			background-color:black;
+		}
