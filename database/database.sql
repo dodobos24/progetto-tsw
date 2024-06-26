@@ -13,6 +13,9 @@ CREATE TABLE Users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+INSERT INTO Users values ();
+//inserire i ruoli? es admin collab utente 
+//creare tabella per i vari ordini gia effettuati visibile solo da admin e collab
 DROP TABLE IF EXISTS 'Events';
 CREATE TABLE Events (
     event_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -66,6 +69,7 @@ CREATE TABLE CartItems (
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
 );
 
+//popolare database con utenti eventi e biglietti di vario tipo per i dati eventi 
 
 
 
