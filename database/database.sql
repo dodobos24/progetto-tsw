@@ -76,3 +76,4 @@ CREATE TABLE CartItems (
     FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
 );
+ciao
