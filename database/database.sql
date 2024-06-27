@@ -27,10 +27,10 @@ CREATE TABLE Events (
     event_date DATETIME NOT NULL,
     venue VARCHAR(100) NOT NULL,
     description TEXT,
-    event_type VARCHAR(50) not null,  -- Attributo per il tipo di evento
-    organizer VARCHAR(100) not null,  -- Attributo per l'organizzatore dell'evento
-    artist_id INT,  -- Attributo per l'artista (se applicabile)
-    FOREIGN KEY (artist_id) REFERENCES Artists(artist_id)  -- Chiave esterna verso Artists
+    event_type VARCHAR(50) not null,
+    organizer VARCHAR(100) not null,
+    artist_id INT,
+    FOREIGN KEY (artist_id) REFERENCES Artists(artist_id)
 );
 
 DROP TABLE IF EXISTS Tickets;
@@ -77,15 +77,13 @@ CREATE TABLE CartItems (
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
 );
 
---Popolazione artisti
 INSERT INTO Artists (artist_name, genre) VALUES
 ('Drake', 'Trap'),
 ('Travis Scott', 'Rap'),
 ('Blanco', 'Pop');
 
---Popolazione eventi
 INSERT INTO Events (event_name, event_date, venue, description, event_type, organizer, artist_id) VALUES
--- Eventi Musicali
+--Eventi musicali
 ('Concerto di Rock', '2024-07-15 20:00:00', 'Stadio Olimpico', 'Un grande concerto di rock con band famose.', 'Musica', 'Rock Productions', 1),
 ('Concerto Pop', '2024-07-20 21:00:00', 'Arena Centrale', 'Concerto con la famosa Cantante Pop.', 'Musica', 'Pop Events Inc.', 2),
 ('Festa Elettronica', '2024-07-25 22:00:00', 'Club Notturno', 'Serata di musica elettronica con DJ Electro.', 'Musica', 'Electronic Nights', 3),
@@ -109,6 +107,3 @@ INSERT INTO Events (event_name, event_date, venue, description, event_type, orga
 ('Partita di Calcio', '2024-11-20 15:00:00', 'Stadio Comunale', 'Partita del campionato di calcio.', 'Sport', 'Sports League', NULL),
 ('Torneo di Tennis', '2024-11-25 16:00:00', 'Centro Tennis', 'Torneo di tennis internazionale.', 'Sport', 'Tennis World', NULL),
 ('Gara di Atletica', '2024-11-30 10:00:00', 'Stadio Olimpico', 'Gara di atletica con partecipanti internazionali.', 'Sport', 'Athletics Association', NULL);
-
-
-
