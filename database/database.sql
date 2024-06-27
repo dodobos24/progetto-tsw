@@ -75,4 +75,8 @@ CREATE TABLE CartItems (
     price DECIMAL(10, 2),
     FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
+<<<<<<< HEAD
 );
+=======
+);
+>>>>>>> branch 'main' of https://github.com/dodobos24/progetto-tsw.git
