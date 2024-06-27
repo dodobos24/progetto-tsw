@@ -12,7 +12,7 @@
 <BODY>
 	<HEADER>
 		<div class="logo_nav">
-			<div class="logo flexCenter">
+			<div onclick="window.location.href = 'index.html'" class="logo flexCenter">
 				<img src="./img/icon.png" alt="logo">
 			</div>
 		
@@ -70,20 +70,20 @@
 	<section class="unTerzoScreen firstUnTerzoScreen">
 		<form action="" method="get" id="cerca">
 			<div class="input">
-				<span><ion-icon name="map"></ion-icon><select name="dove" id="dove"><option value="" disabled selected>Dove</option></select></span>
-				<span><ion-icon name="calendar-clear"></ion-icon><input type="date" name="quando" id="quando" placeholder="Quando"></span>
-				<span><ion-icon name="server"></ion-icon><select name="categoria" id="categoria"><option value="" disabled selected>Categoria</option></select></span>
-				<span><ion-icon name="brush"></ion-icon><select name="artista" id="artista"><option value="" disabled selected>Artista</option></select></span>
+				<span><ion-icon name="map"></ion-icon><select class="buttonShadow" name="dove" id="dove"><option value="" disabled selected>Dove</option></select></span>
+				<span><ion-icon name="calendar-clear"></ion-icon><input class="buttonShadow" type="date" name="quando" id="quando" placeholder="Quando"></span>
+				<span><ion-icon name="server"></ion-icon><select class="buttonShadow" name="categoria" id="categoria"><option value="" disabled selected>Categoria</option></select></span>
+				<span><ion-icon name="brush"></ion-icon><select class="buttonShadow" name="artista" id="artista"><option value="" disabled selected>Artista</option></select></span>
 			</div>
 			<div class="submit">
-				<input type="submit" value="Cerca">
+				<input class="buttonShadow button" type="submit" value="Cerca">
 			</div>
 			
 		</form>
 	</section>
 	
 	<section class="allScreen flexCenter noBorder flexDirectionColumn sliderSection" >
-		<p>DI TENDENZA IN QUESTO MOMENTO</p>
+		<p class="fontBolder h2">DI TENDENZA IN QUESTO MOMENTO</p>
 		<div id="slider">
 			<div id="slides">
 				<div class="slide slide1">
@@ -151,14 +151,14 @@
 	</section>
 
 	<section class="unTerzoScreen secondUnTerzoScreen flexCenter flexDirectionColumn">
-		<p>ARTISTI</p>
+		<p class="fontBolder h2">ARTISTI</p>
 		<div class="flexCenter">
-			<span></span>
-			<span></span>
-			<span></span>
-			<span></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"><a href=""></a></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"><a href=""></a></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"><a href=""></a></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"><a href=""></a></span>
 		</div>
-		<a href="">Vedi tutti</a>
+		<a class="buttonShadow button" href="">Vedi tutti</a>
 	</section>
 
 	</main>
