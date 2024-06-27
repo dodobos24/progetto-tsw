@@ -77,11 +77,13 @@ CREATE TABLE CartItems (
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
 );
 
+--popolazione artisti
 INSERT INTO Artists (artist_name, genre) VALUES
 ('Drake', 'Trap'),
 ('Travis Scott', 'Rap'),
 ('Blanco', 'Pop');
 
+--popolazione eventi
 INSERT INTO Events (event_name, event_date, venue, description, event_type, organizer, artist_id) VALUES
 --Eventi musicali
 ('Concerto di Rock', '2024-07-15 20:00:00', 'Stadio Olimpico', 'Un grande concerto di rock con band famose.', 'Musica', 'Rock Productions', 1),
@@ -107,3 +109,4 @@ INSERT INTO Events (event_name, event_date, venue, description, event_type, orga
 ('Partita di Calcio', '2024-11-20 15:00:00', 'Stadio Comunale', 'Partita del campionato di calcio.', 'Sport', 'Sports League', NULL),
 ('Torneo di Tennis', '2024-11-25 16:00:00', 'Centro Tennis', 'Torneo di tennis internazionale.', 'Sport', 'Tennis World', NULL),
 ('Gara di Atletica', '2024-11-30 10:00:00', 'Stadio Olimpico', 'Gara di atletica con partecipanti internazionali.', 'Sport', 'Athletics Association', NULL);
+
