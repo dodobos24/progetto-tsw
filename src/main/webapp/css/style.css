@@ -113,7 +113,7 @@
 			
 		}
 		
-		header .cerca_account{
+		header .carrello_account{
 			width:25%;
 			height:100%;
 			margin-right:5vw;
@@ -124,48 +124,23 @@
 
 		}
 		
-		header .cerca_account .account{
+		header .carrello_account .account, header .carrello_account .carrello{
 		
-			height:40%;
+			height:55%;
 			aspect-ratio:1/1;
 			cursor:pointer;
+			border:2px solid trasparent;
+			border-radius:50%;
 		}
 		
-		header .cerca_account .account img{
-			width:100%;
+		header .carrello_account .account:hover, header .carrello_account .carrello:hover{
+			border:2px solid rgba(255,255,255,0.5);
+		}
+		
+		header .carrello_account .account ion-icon, header .carrello_account .carrello ion-icon{
+			font-size:3.5em;
 			color:white;
 		
-		}
-		
-		
-		header .cerca_account .cerca{
-			flex:1;
-			height:100%;
-			display:flex;
-			justify-content:right;
-			align-items: center;
-		}
-		
-		header .cerca_account .cerca input{
-			border:2px solid rgba(255,255,255,0);
-			padding:0 0 0 1em;
-			width:80%;
-			height:40%;
-			border-radius: 0.7em;
-			font-size:1.6em;
-			background-color:rgba(255,255,255,0.3);
-			color:white;
-			transition:0.2s;
-		}
-		
-		header .cerca_account .cerca input:hover{
-			border-radius:1em;
-			border:2px solid white;
-		}
-		
-		header .cerca_account .cerca input::placeholder{
-			color:white;
-			text-align:center;
 		}
 
 		main{
@@ -173,6 +148,18 @@
 			flex-direction: column;
 			align-items: center;
 			gap:7vh;
+		}
+		
+		.firstSection{
+			position:relative;
+		}
+		
+		main .firstSection > span{
+			position:absolute;
+			top:15%;
+			font-size:6em;
+			font-weight:900;
+			letter-spacing:20px;
 		}
 		
 		.allScreen{
@@ -183,7 +170,7 @@
 			overflow: hidden;
 			background-color:var(--supportColor);
 		}
-		#firstSection{
+		.firstSection{
 			height: 100vh;
 			background-image:url(../img/sfondo.png);
 			background-size:cover;
