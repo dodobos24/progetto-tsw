@@ -11,6 +11,7 @@ public class UserBean implements Serializable {
 	private String name;
 	private String surname;
 	private boolean admin;
+	private boolean valid;
 	
 	public UserBean() {}
 	
@@ -44,4 +45,7 @@ public class UserBean implements Serializable {
 	
 	public boolean isAdmin() { return admin; }
 	public void setAdmin(boolean admin) { this.admin=admin; }
+	
+	public boolean isValid() { return valid; }
+	public void setValid(boolean valid) { this.valid=valid; }
 }
