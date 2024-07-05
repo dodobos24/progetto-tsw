@@ -75,7 +75,6 @@ CREATE TABLE CartItems (
     price DECIMAL(10, 2),
     FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
     FOREIGN KEY (event_id) REFERENCES Events(event_id)
-<<<<<<< HEAD
 );
 
 --popolazione artisti
@@ -111,6 +110,5 @@ INSERT INTO Events (event_name, event_date, venue, description, event_type, orga
 ('Torneo di Tennis', '2024-11-25 16:00:00', 'Centro Tennis', 'Torneo di tennis internazionale.', 'Sport', 'Tennis World', NULL),
 ('Gara di Atletica', '2024-11-30 10:00:00', 'Stadio Olimpico', 'Gara di atletica con partecipanti internazionali.', 'Sport', 'Athletics Association', NULL);
 
-=======
 );
->>>>>>> branch 'main' of https://github.com/dodobos24/progetto-tsw.git
+
