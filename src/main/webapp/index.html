@@ -12,28 +12,28 @@
 <BODY>
 	<HEADER>
 		<div class="logo_nav">
-			<div class="logo flexCenter">
+			<div onclick="window.location.href = 'index.html'" class="logo flexCenter">
 				<img src="./img/icon.png" alt="logo">
 			</div>
 		
 			<div class="nav">
 			
-				<span class="selected">
+				<span onclick="window.location.href = 'index.html'" class="selected">
 					Home
 				</span>
-				<span>
+				<span onclick="window.location.href = 'musica.html'">
 					Musica
 				</span>
-				<span>
+				<span onclick="window.location.href = 'festival.html'">
 					Festival
 				</span>
-				<span>
+				<span onclick="window.location.href = 'teatro.html'">
 					Teatro
 				</span>
-				<span>
+				<span onclick="window.location.href = 'arte.html'">
 					Arte
 				</span>
-				<span>
+				<span onclick="window.location.href = 'sport.html'">
 					Sport
 				</span>
 
@@ -46,22 +46,25 @@
 		</div>
 
 		
-		<div class="cerca_account">
-			<div class="cerca">
-			
-				<input type="text" placeholder="Cerca artista o evento.">
-			
+		<div class="carrello_account">
+			<div class="carrello flexCenter">
+				<ion-icon name="cart-sharp" onclick="window.location.href = 'cart.html'"></ion-icon>
 			</div>
 			
+<<<<<<< HEAD
 			<span class="account">
 				<a href="account.jsp"><img src="./img/person-sharp.png"></a>
+=======
+			<span class="account flexCenter">
+				<ion-icon name="person-sharp" onclick="window.location.href = 'login.html'"></ion-icon>
+>>>>>>> branch 'main' of https://github.com/dodobos24/progetto-tsw.git
 			</span>
 		</div>
 
 
 	</HEADER>
 	<main>
-	<section class="allScreen" id="firstSection">
+	<section class="allScreen firstSection">
 		<div class="logoCentrale flexCenter">
 			<span id="my">My</span><span id="tickez">Tickez</span>
 		</div>
@@ -70,20 +73,20 @@
 	<section class="unTerzoScreen firstUnTerzoScreen">
 		<form action="" method="get" id="cerca">
 			<div class="input">
-				<span><ion-icon name="map"></ion-icon><select name="dove" id="dove"><option value="" disabled selected>Dove</option></select></span>
-				<span><ion-icon name="calendar-clear"></ion-icon><input type="date" name="quando" id="quando" placeholder="Quando"></span>
-				<span><ion-icon name="server"></ion-icon><select name="categoria" id="categoria"><option value="" disabled selected>Categoria</option></select></span>
-				<span><ion-icon name="brush"></ion-icon><select name="artista" id="artista"><option value="" disabled selected>Artista</option></select></span>
+				<span><ion-icon name="map"></ion-icon><select class="buttonShadow" name="dove" id="dove"><option value="" disabled selected>Dove</option></select></span>
+				<span><ion-icon name="calendar-clear"></ion-icon><input class="buttonShadow" type="date" name="quando" id="quando" placeholder="Quando"></span>
+				<span><ion-icon name="server"></ion-icon><select class="buttonShadow" name="categoria" id="categoria"><option value="" disabled selected>Categoria</option></select></span>
+				<span><ion-icon name="brush"></ion-icon><select class="buttonShadow" name="artista" id="artista"><option value="" disabled selected>Artista</option></select></span>
 			</div>
 			<div class="submit">
-				<input type="submit" value="Cerca">
+				<input class="buttonShadow button" type="submit" value="Cerca">
 			</div>
 			
 		</form>
 	</section>
 	
 	<section class="allScreen flexCenter noBorder flexDirectionColumn sliderSection" >
-		<p>DI TENDENZA IN QUESTO MOMENTO</p>
+		<p class="fontBolder h2">DI TENDENZA IN QUESTO MOMENTO</p>
 		<div id="slider">
 			<div id="slides">
 				<div class="slide slide1">
@@ -151,14 +154,14 @@
 	</section>
 
 	<section class="unTerzoScreen secondUnTerzoScreen flexCenter flexDirectionColumn">
-		<p>ARTISTI</p>
+		<p class="fontBolder h2">ARTISTI</p>
 		<div class="flexCenter">
-			<span></span>
-			<span></span>
-			<span></span>
-			<span></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"></span>
+			<span onclick="window.location.href = ''" class="buttonShadow"></span>
 		</div>
-		<a href="">Vedi tutti</a>
+		<a class="buttonShadow button" href="">Vedi tutti</a>
 	</section>
 
 	</main>
