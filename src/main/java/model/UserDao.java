@@ -26,6 +26,28 @@ public class UserDao implements UserDaoInterface {
             e.printStackTrace();
         }
     }
+    
+    @Override
+	public UserBean doRetrieve(String username, String password) {
+    	String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    	UserBean user = null;
+    	try (Connection connection = DatabaseUtility.getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql)) {
+	        statement.setString(1, username);
+	        statement.setString(2, password);
+
+	        ResultSet rs = statement.executeQuery();
+
+	        if (rs.next()) {
+	            user = new UserBean();
+	            user.setUsername(rs.getString("username"));
+	            user.setPassword(rs.getString("password"));
+	        }
+	    } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+	    return user;
+	}
 
     @Override
     public UserBean getUserById(int id) {
