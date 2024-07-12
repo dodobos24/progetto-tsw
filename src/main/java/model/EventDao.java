@@ -197,5 +197,52 @@ public class EventDao implements EventDaoInterface {
         }
         return events;
     }
+    
+    @Override
+    public List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist) {
+        List<EventBean> events = new ArrayList<>();
+        StringBuilder sql = new StringBuilder("SELECT * FROM Events WHERE 1=1");
+        if (venue != null && !venue.trim().isEmpty()) sql.append(" AND venue = ?");
+        if (date != null) sql.append(" AND date = ?");
+        if (eventType != null && !eventType.trim().isEmpty()) sql.append(" AND event_type = ?");
+        if (artist != null && !artist.trim().isEmpty()) sql.append(" AND artist_id = ?");
+
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql.toString())) {
+            
+            int index = 1;
+            if (venue != null && !venue.trim().isEmpty()) {
+                statement.setString(index++, venue);
+            }
+            if (date != null) {
+                statement.setTimestamp(index++, Timestamp.valueOf(date));
+            }
+            if (eventType != null && !eventType.trim().isEmpty()) {
+                statement.setString(index++, eventType);
+            }
+            if (artist != null && !artist.trim().isEmpty()) {
+                // Assuming artist is a string identifier, otherwise adapt accordingly
+                statement.setString(index++, artist);
+            }
+
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                LocalDateTime resultDate = resultSet.getTimestamp("date").toLocalDateTime();
+                String resultVenue = resultSet.getString("venue");
+                String description = resultSet.getString("description");
+                String resultEventType = resultSet.getString("event_type");
+                String organizer = resultSet.getString("organizer");
+                int artistId = resultSet.getInt("artist_id");
+                EventBean event = new EventBean(id, name, resultDate, resultVenue, description, resultEventType, organizer, artistId);
+                events.add(event);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
 }
 
