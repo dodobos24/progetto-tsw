@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventDaoInterface {
@@ -11,4 +12,5 @@ public interface EventDaoInterface {
     List<EventBean> getEventsByArtist(int artistId);
     List<EventBean> getEventsByType(String type);
     List<EventBean> getEventsByOrganizerId(int organizerId);
+    List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist);
 }
