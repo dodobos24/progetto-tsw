@@ -12,7 +12,7 @@ import java.util.List;
 public class EventDao implements EventDaoInterface {
 
     @Override
-    public void addEvent(EventBean event) {
+    public void addEvent(EventBean event)  throws SQLException {
         String sql = "INSERT INTO Events (name, date, venue, description, event_type, organizer, artist_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -31,7 +31,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public EventBean getEventById(int id) {
+    public EventBean getEventById(int id)  throws SQLException {
         String sql = "SELECT * FROM Events WHERE id = ?";
         EventBean event = null;
         try (Connection connection = DatabaseUtility.getConnection();
@@ -57,7 +57,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getAllEvents() {
+    public List<EventBean> getAllEvents()  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         String sql = "SELECT * FROM Events";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -83,7 +83,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public void updateEvent(EventBean event) {
+    public void updateEvent(EventBean event)  throws SQLException {
         String sql = "UPDATE Events SET name = ?, date = ?, venue = ?, description = ?, event_type = ?, organizer = ?, artist_id = ? WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -103,7 +103,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public void deleteEvent(int id) {
+    public void deleteEvent(int id)  throws SQLException {
         String sql = "DELETE FROM Events WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -116,7 +116,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getEventsByArtist(int artistId) {
+    public List<EventBean> getEventsByArtist(int artistId)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         String sql = "SELECT * FROM Events WHERE artist_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -143,7 +143,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getEventsByType(String type) {
+    public List<EventBean> getEventsByType(String type)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         String sql = "SELECT * FROM Events WHERE event_type = ?";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -171,7 +171,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getEventsByOrganizerId(int organizerId) {
+    public List<EventBean> getEventsByOrganizerId(int organizerId)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         String sql = "SELECT * FROM Events WHERE organizer_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -199,7 +199,7 @@ public class EventDao implements EventDaoInterface {
     }
     
     @Override
-    public List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist) {
+    public List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM Events WHERE 1=1");
         if (venue != null && !venue.trim().isEmpty()) sql.append(" AND venue = ?");

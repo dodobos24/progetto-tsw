@@ -9,7 +9,7 @@ import java.util.List;
 
 public class CartItemDao implements CartItemDaoInterface {
 	@Override
-	public void addCartItem(CartItemBean cartItem) {
+	public void addCartItem(CartItemBean cartItem)  throws SQLException {
 	    String sql = "INSERT INTO CartItems (cart_id, event_id, quantity) VALUES (?, ?, ?)";
 	    try (Connection connection = DatabaseUtility.getConnection();
 	         PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -25,7 +25,7 @@ public class CartItemDao implements CartItemDaoInterface {
 	}
 	
 	@Override
-	public CartItemBean getCartItemById(int cartItemId) {
+	public CartItemBean getCartItemById(int cartItemId)  throws SQLException {
 	    String sql = "SELECT * FROM CartItems WHERE item_id = ?";
 	    CartItemBean cartItem = null;
 	    try (Connection connection = DatabaseUtility.getConnection();
@@ -49,7 +49,7 @@ public class CartItemDao implements CartItemDaoInterface {
 	}
 	
 	@Override
-	public List<CartItemBean> getCartItemsByCartId(int cartId) {
+	public List<CartItemBean> getCartItemsByCartId(int cartId)  throws SQLException {
 	    List<CartItemBean> listCartItems = new ArrayList<>();
 	    String sql = "SELECT * FROM CartItems WHERE cart_id = ?";
 	    try (Connection connection = DatabaseUtility.getConnection();
@@ -74,7 +74,7 @@ public class CartItemDao implements CartItemDaoInterface {
 	}
 	
 	@Override
-	public void updateCartItem(CartItemBean cartItem) {
+	public void updateCartItem(CartItemBean cartItem)  throws SQLException {
 	    String sql = "UPDATE CartItems SET quantity = ? WHERE item_id = ?";
 	    try (Connection connection = DatabaseUtility.getConnection();
 	         PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -89,7 +89,7 @@ public class CartItemDao implements CartItemDaoInterface {
 	}
 	
 	@Override
-	public void deleteCartItem(int cartItemId) {
+	public void deleteCartItem(int cartItemId)  throws SQLException {
 	    String sql = "DELETE FROM CartItems WHERE item_id = ?";
 	    try (Connection connection = DatabaseUtility.getConnection();
 	         PreparedStatement statement = connection.prepareStatement(sql)) {

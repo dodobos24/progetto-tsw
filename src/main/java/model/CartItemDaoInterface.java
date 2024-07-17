@@ -1,11 +1,12 @@
 package model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface CartItemDaoInterface {
-	void addCartItem(CartItemBean cartItem);
-    CartItemBean getCartItemById(int cartItemId);
-    List<CartItemBean> getCartItemsByCartId(int cartId);
-    void updateCartItem(CartItemBean cartItem);
-    void deleteCartItem(int cartItemId);
+	void addCartItem(CartItemBean cartItem) throws SQLException;
+    CartItemBean getCartItemById(int cartItemId) throws SQLException;
+    List<CartItemBean> getCartItemsByCartId(int cartId) throws SQLException;
+    void updateCartItem(CartItemBean cartItem) throws SQLException;
+    void deleteCartItem(int cartItemId) throws SQLException;
 }

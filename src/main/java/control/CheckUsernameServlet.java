@@ -1,8 +1,8 @@
 package control;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,16 +14,16 @@ import model.UserBean;
 import model.UserDao;
 
 /**
- * Servlet implementation class RegistrazioneServlet
+ * Servlet implementation class CheckUsernameServlet
  */
-@WebServlet("/RegistrazioneServlet")
-public class RegistrazioneServlet extends HttpServlet {
+@WebServlet("/CheckUsernameServlet")
+public class CheckUsernameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegistrazioneServlet() {
+    public CheckUsernameServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,7 @@ public class RegistrazioneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -42,25 +42,22 @@ public class RegistrazioneServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		UserDao dao = new UserDao();
-		String name = request.getParameter("nome");
-		String surname = request.getParameter("cognome");
-		String email = request.getParameter("email");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
+		String us = request.getParameter("us");
 		
+		ArrayList<UserBean> users;
 		try {
-			UserBean user = new UserBean();
-			user.setNome(name);
-			user.setCognome(surname);
-			user.setEmail(email);
-			user.setUsername(username);
-			user.setPassword(password);
-			user.setAdmin(false);
-			dao.addUser(user);
-					
-			response.sendRedirect(request.getContextPath() + "/Home.jsp");
-		} catch(SQLException e) {
-			System.out.println("Error:" + e.getMessage());
+			users = (ArrayList<UserBean>) dao.getAllUsers();
+			for(UserBean user: users) {
+				if(user.getUsername().equals(us)){
+					response.getWriter().write("0");
+					return;
+				}
+			}
+			response.getWriter().write("1");
+			return;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

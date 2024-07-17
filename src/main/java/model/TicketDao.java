@@ -12,7 +12,7 @@ import java.util.List;
 public class TicketDao implements TicketDaoInterface {
 
     @Override
-    public void addTicket(TicketBean ticket) {
+    public void addTicket(TicketBean ticket)  throws SQLException {
         String sql = "INSERT INTO Tickets (event_id, user_id, purchase_date, seat_number, price) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -29,7 +29,7 @@ public class TicketDao implements TicketDaoInterface {
     }
 
     @Override
-    public TicketBean getTicketById(int id) {
+    public TicketBean getTicketById(int id)  throws SQLException {
         String sql = "SELECT * FROM Tickets WHERE id = ?";
         TicketBean ticket = null;
         try (Connection connection = DatabaseUtility.getConnection();
@@ -53,7 +53,7 @@ public class TicketDao implements TicketDaoInterface {
     }
 
     @Override
-    public List<TicketBean> getAllTickets() {
+    public List<TicketBean> getAllTickets()  throws SQLException {
         List<TicketBean> tickets = new ArrayList<>();
         String sql = "SELECT * FROM Tickets";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -77,7 +77,7 @@ public class TicketDao implements TicketDaoInterface {
     }
 
     @Override
-    public void updateTicket(TicketBean ticket) {
+    public void updateTicket(TicketBean ticket)  throws SQLException {
         String sql = "UPDATE Tickets SET event_id = ?, user_id = ?, purchase_date = ?, seat_number = ?, price = ? WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -95,7 +95,7 @@ public class TicketDao implements TicketDaoInterface {
     }
 
     @Override
-    public void deleteTicket(int id) {
+    public void deleteTicket(int id)  throws SQLException {
         String sql = "DELETE FROM Tickets WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -108,7 +108,7 @@ public class TicketDao implements TicketDaoInterface {
     }
 
     @Override
-    public List<TicketBean> getTicketByUser(int userId) {
+    public List<TicketBean> getTicketByUser(int userId)  throws SQLException {
         List<TicketBean> tickets = new ArrayList<>();
         String sql = "SELECT * FROM Tickets WHERE user_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -133,7 +133,7 @@ public class TicketDao implements TicketDaoInterface {
     }
 
     @Override
-    public List<TicketBean> getTicketByEvent(int eventId) {
+    public List<TicketBean> getTicketByEvent(int eventId)  throws SQLException {
         List<TicketBean> tickets = new ArrayList<>();
         String sql = "SELECT * FROM Tickets WHERE event_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();

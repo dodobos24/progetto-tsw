@@ -12,7 +12,7 @@ import java.util.List;
 public class PaymentDao implements PaymentDaoInterface {
 
     @Override
-    public void addPayment(PaymentBean payment) {
+    public void addPayment(PaymentBean payment)  throws SQLException {
         String sql = "INSERT INTO Payments (user_id, ticket_id, amount, payment_date, payment_method) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -29,7 +29,7 @@ public class PaymentDao implements PaymentDaoInterface {
     }
 
     @Override
-    public PaymentBean getPaymentById(int id) {
+    public PaymentBean getPaymentById(int id)  throws SQLException {
         String sql = "SELECT * FROM Payments WHERE id = ?";
         PaymentBean payment = null;
         try (Connection connection = DatabaseUtility.getConnection();
@@ -53,7 +53,7 @@ public class PaymentDao implements PaymentDaoInterface {
     }
 
     @Override
-    public List<PaymentBean> getAllPayments() {
+    public List<PaymentBean> getAllPayments()  throws SQLException {
         List<PaymentBean> payments = new ArrayList<>();
         String sql = "SELECT * FROM Payments";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -77,7 +77,7 @@ public class PaymentDao implements PaymentDaoInterface {
     }
 
     @Override
-    public void updatePayment(PaymentBean payment) {
+    public void updatePayment(PaymentBean payment)  throws SQLException {
         String sql = "UPDATE Payments SET user_id = ?, ticket_id = ?, amount = ?, payment_date = ?, payment_method = ? WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -95,7 +95,7 @@ public class PaymentDao implements PaymentDaoInterface {
     }
 
     @Override
-    public void deletePayment(int id) {
+    public void deletePayment(int id)  throws SQLException {
         String sql = "DELETE FROM Payments WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -108,7 +108,7 @@ public class PaymentDao implements PaymentDaoInterface {
     }
 
     @Override
-    public List<PaymentBean> getPaymentByUser(int userId) {
+    public List<PaymentBean> getPaymentByUser(int userId)  throws SQLException {
         List<PaymentBean> payments = new ArrayList<>();
         String sql = "SELECT * FROM Payments WHERE user_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -133,7 +133,7 @@ public class PaymentDao implements PaymentDaoInterface {
     }
 
     @Override
-    public List<PaymentBean> getPaymentByTicket(int ticketId) {
+    public List<PaymentBean> getPaymentByTicket(int ticketId)  throws SQLException {
         List<PaymentBean> payments = new ArrayList<>();
         String sql = "SELECT * FROM Payments WHERE ticket_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
