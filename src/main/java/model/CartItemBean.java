@@ -38,5 +38,5 @@ public class CartItemBean implements Serializable{
 	public void setSeatNumber(String seatNumber) { this.seatNumber=seatNumber; }
 	
 	public float getPrice() { return price; }
-	public void setPrice(int price) { this.price=price; }
+	public void setPrice(float price) { this.price=price; }
 }
