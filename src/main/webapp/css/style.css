@@ -1,588 +1,582 @@
-		:root{
-			--numSlides:6;
-			--pColor:#000;
-			--sColor:#FF8C42;
-			--supportColor:rgb(220, 220, 220);
-			--neutralColor:#FFFFFF;
-			--errorColor:#FF3B30;
-			--succesColor:#FF3B30;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+:root{
+	--numSlides:6;
+	--pColor:#000;
+	--sColor:#FF8C42;
+	--supportColor:rgb(220, 220, 220);
+	--neutralColor:#FFFFFF;
+	--errorColor:#FF3B30;
+	--succesColor:#FF3B30;
+}
 
-		}
-		
-		*{
-			margin:0;
-			padding:0;
-			box-sizing: border-box;
-			font-size:10px;
-			font-family:"Poppins";
-			font-style:normal;
-			font-weight:400;
-			user-select: none;
-			transition-timing-function: linear;
-			letter-spacing:1px;
-		}
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Roboto";
+	font-weight: 400;
+	user-select: none;
+	letter-spacing: 2px;
+}
+
+body{
+	width:100%;
+	min-height: 100vh;
+	background-color: white;
+	font-size:10px;
+	line-height: 1.5;
+}
+
+header{
+	width:100%;
+	height:7em;
+	background-color:var(--pColor);
+	display:flex;
+	justify-content:space-between;
+	align-items:center;
+	position:fixed;
+	z-index: 1000;
+	box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.7);
+}
+
+header .logo_nav{
+	width:60%;
+	height:100%;
+	margin-left:5vw;
+	display:flex;
+	gap:5%;
+	justify-content:left;
+	align-items: center;
+}
+
+header .logo_nav .logo{
+	height:100%;
+	aspect-ratio:2/1;
+	cursor:pointer;
+	transition:0.2s;
+}
+
+header .logo_nav .logo img{
+	width:100%;
+	transition:0.2s;
+}
+
+header .logo_nav .nav{
+	flex:1;
+	height:100%;
+	display:flex;
+	gap:5%;
+	justify-content:left;
+	align-items: center;
+}
+
+header .logo_nav .nav span{
+	color:white;
+	font-size:1.7em;
+	position:relative;
+	cursor:pointer;
+}
+
+header .logo_nav .nav span::after, header .selected::after, header .carrello_account .account::after, header .carrello_account .carrello::after{
+	content:"";
+	position:absolute;
+	bottom:-4px;
+	left:50%;
+	transition: 0.2s;
+	width:0;
+	height: 4px;
+	border-radius: 4px;
+}
+
+header .logo_nav .nav .selected::after, header .carrello_account .selected::after{
+	width:100%;
+	left:0;
+	background-color:white;
+}
+
+header .logo_nav .nav span:hover::after,header .carrello_account .account:hover::after, header .carrello_account .carrello:hover::after{
+	width:100%;
+	left:0;
+	background-color:rgba(255, 255, 255, 0.8);
+}
+
+header .logo_nav .nav .selected{
+	font-weight:900;
+}
+
+header .carrello_account{
+	width:25%;
+	height:100%;
+	margin-right:5vw;
+	display:flex;
+	gap:5%;
+	justify-content:right;
+	align-items: center;
+}
+
+header .carrello_account .account, header .carrello_account .carrello{
+	height:60%;
+	aspect-ratio:1/1;
+	cursor:pointer;
+	border:2px solid trasparent;
+	transition: 0.2s;
+	position: relative;
+}
+
+header .carrello_account .account ion-icon, header .carrello_account .carrello ion-icon{
+	font-size:3.5em;
+	color:white;
+}
+
+main{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap:5em;
+}
+
+.firstSection{
+	position:relative;
+}
+
+main .firstSection > span{
+	position:absolute;
+	top:15%;
+	font-size:6em;
+	font-weight:900;
+	letter-spacing:20px;
+}
+
+.allScreen{
+	width:100%;
+	border-radius: 2em;
+	overflow: hidden;
+	background-color:var(--supportColor);
+	padding: 2em 0;
+}
+.firstSection{
+	padding: 20em 0;
+	background-image:url(../img/sfondo.png);
+	background-size:cover;
+	background-repeat:no-repeat;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+.allScreen .logoCentrale span{
+	color: rgba(255,255,255,0);
+	-webkit-text-stroke:3px black;
+	font-size:10vmin;
+	font-weight: 900;
+	transition:0.2s;
+	position: relative;
+	letter-spacing:20px;
+}
+
+.allScreen .logoCentrale #my{
+	-webkit-text-stroke:3px white;
+	animation: topDown 3s ease-in-out infinite;
+}
+.allScreen .logoCentrale #tickez{
+	animation: downTop 3s ease-in-out infinite;
+}
+
+@keyframes downTop {
+	0% {
+		top:-20;
+	}
+
+	50% {
+		top:20px;
+	}
 	
-		body{
-			width:100%;
-			max-width:100vw;
-			height:200vh;
-			background-color: white;
-		}
-		
-		header{
-			width:100%;
-			height:10vh;
-			background-color:var(--pColor);
-			display:flex;
-			justify-content:space-between;
-			align-items:center;
-			position:fixed;
-			border-bottom-left-radius: 2em;
-			border-bottom-right-radius: 2em;
-			z-index: 1000;
-			box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.7);
-		}
-		
-		header .logo_nav{
-			width:60%;
-			height:100%;
-			margin-left:5vw;
-			display:flex;
-			gap:5%;
-			justify-content:left;
-			align-items: center;
-		}
-		
-		header .logo_nav .logo{
-			height:100%;
-			aspect-ratio:2/1;
-			cursor:pointer;
-			transition:0.2s;
-		}
-		
-		header .logo_nav .logo img{
-			width:100%;
-			transition:0.2s;
-		}
-		header .logo_nav .logo:hover{
-			transform: rotate(-10deg);
-		}
-		
-		header .logo_nav .nav{
-			flex:1;
-			height:100%;
-			display:flex;
-			gap:5%;
-			justify-content:left;
-			align-items: center;
-		}
-		
-		header .logo_nav .nav span{
-			color:white;
-			font-size:1.7em;
-			position:relative;
-			cursor:pointer;
-		}
-		
-		header .logo_nav .nav span::after, header .logo_nav .nav .selected::after{
-			content:"";
-			position:absolute;
-			bottom:-4px;
-			left:50%;
-			transition: 0.2s;
-			width:0;
-			height: 4px;
-			border-radius: 4px;
+	100% {
+		top:-20;
+	}
+}
 
-		}
-		
-		header .logo_nav .nav .selected::after{
-			width:100%;
-			left:0;
-			background-color:white;
-		}
-		
-		header .logo_nav .nav span:hover::after{
-			width:100%;
-			left:0;
-			background-color:rgba(255, 255, 255, 0.8);
-		}
-		
-		header .logo_nav .nav .selected{
-			font-weight:900;
-			
-		}
-		
-		header .carrello_account{
-			width:25%;
-			height:100%;
-			margin-right:5vw;
-			display:flex;
-			gap:5%;
-			justify-content:right;
-			align-items: center;
+@keyframes topDown {
+	0% {
+		bottom:-20;
+	}
 
-		}
-		
-		header .carrello_account .account, header .carrello_account .carrello{
-		
-			height:55%;
-			aspect-ratio:1/1;
-			cursor:pointer;
-			border:2px solid trasparent;
-			border-radius:50%;
-		}
-		
-		header .carrello_account .account:hover, header .carrello_account .carrello:hover{
-			border:2px solid rgba(255,255,255,0.5);
-		}
-		
-		header .carrello_account .account ion-icon, header .carrello_account .carrello ion-icon{
-			font-size:3.5em;
-			color:white;
-		
-		}
+	50% {
+		bottom:20px;
+	}
+	
+	100% {
+		bottom:-20;
+	}
+}
 
-		main{
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			gap:7vh;
-		}
-		
-		.firstSection{
-			position:relative;
-		}
-		
-		main .firstSection > span{
-			position:absolute;
-			top:15%;
-			font-size:6em;
-			font-weight:900;
-			letter-spacing:20px;
-		}
-		
-		.allScreen{
-			
-			height:90vh;
-			width:100%;
-			border-radius: 2em;
-			overflow: hidden;
-			background-color:var(--supportColor);
-		}
-		.firstSection{
-			height: 100vh;
-			background-image:url(../img/sfondo.png);
-			background-size:cover;
-			background-repeat:no-repeat;
-			display:flex;
-			justify-content:center;
-			align-items:center;
-		}
-		
-		.allScreen .logoCentrale span{
-			color: rgba(255,255,255,0);
-			-webkit-text-stroke:9px black;
-			font-size:17em;
-			font-weight: 700;
-			transition:0.2s;
-			position: relative;
-			letter-spacing:20px;
-		}
-		
-		.allScreen .logoCentrale #my{
-			-webkit-text-stroke:9px white;
-			animation: topDown 2s linear infinite;
-		}
-		.allScreen .logoCentrale #tickez{
-			animation: downTop 2s linear infinite;
-		}
-		.unTerzoScreen{
-			padding: 20px;
-			height:45vh;
-			width:85%;
-			border-radius: 2em;
-			border: 5px solid var(--pColor);
-			box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.7);
-			background-color: var(--supportColor);
-		}
+.unTerzoScreen{
+	padding: 20px;
+	width:75%;
+	border-radius: 2em;
+	border: 5px solid var(--pColor);
+	box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.7);
+	background-color: var(--supportColor);
+}
+main .unTerzoScreen form{
+	height: 100%;
+	width: 100%;
+	flex-wrap: wrap;
+}
+main .unTerzoScreen form .input{
+	flex: 1;
+	flex-basis: 100;
+	flex-wrap: wrap;
+}
+main .unTerzoScreen form .input span{
+	flex-grow: 1;
+	flex-basis: 100;
+	position: relative;
+}
 
-		.firstUnTerzoScreen{
-			height: 15vh;
-		}
-		main .unTerzoScreen form{
-			height: 100%;
-			width: 100%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-		main .unTerzoScreen form .input{
-			width: 50%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex: 1;
-		}
-		main .unTerzoScreen form .input span{
-			width: 20%;
-		}
-		main .unTerzoScreen form .submit{
-			width: 20%;
-			height: 100%;
-			display: flex;
-			justify-content: left;
-			align-items: center;
-		}
+main .unTerzoScreen form .submit{
+	width: 15%;
+	height: 100%;
+	flex-basis: 100;
+	min-width: 12em;
+}
 
-		main .unTerzoScreen form .input input, main .unTerzoScreen form .input select{
-			width: 70%;
-			padding: 5px;
-			font-size: 1.7em;
-			border: 0px solid black;
-			border-radius: 5px;
-		}
-		main .unTerzoScreen form .input select option{
-			font-size: 0.8em;
-		}
-		main .unTerzoScreen form .input ion-icon{
-			margin-right: 0.2em;
-			font-size: 3em;
-			color: black;
-			z-index: -100;
-		}
-		
-		main #slider{
-			height: 70vh;
-			width: auto;
-			aspect-ratio: 1/1;
-			overflow: hidden;
-			border-radius: 10px;
-			
-		}
-		main #slider #slides{
-			display: flex;
-			flex-direction: row;
-			justify-content: center;
-			align-items: center;
-			width: calc(100% * var(--numSlides));
-			height: 100%;
-			animation: slider 25s linear infinite;
-		}
+main .unTerzoScreen form .input input, main .unTerzoScreen form .input select{
+	padding: 5px;
+	font-size: 1.7em;
+	border-radius: 5px;
+	flex: 1;
+}
+main .unTerzoScreen form .input select option{
+	font-size: 0.8em;
+}
+main .unTerzoScreen form .input ion-icon{
+	margin-right: 0.2em;
+	font-size: 3em;
+	color: black;
+}
 
-		main .sliderSection{
-			gap:5%
-		}
-		main #slider #slides .slide{
-			width: 100%;
-			height: 100%;
-			transition: 0.5s;
-			font-size: 3em;
-			cursor: pointer;
-			display: flex;
-			justify-content: left;
-			align-items: last baseline;
-			background-position: 50% 50%;
-		}
-		main #slider #slides .blur{
-			position: relative;
-			width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            display: flex;
-			justify-content: left;
-			align-items: last baseline;
-		}
+main #slider{
+	width: 35vmax;
+	aspect-ratio: 1/1;
+	overflow: hidden;
+	border-radius: 10px;
+}
+main #slider #slides{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	width: calc(100% * var(--numSlides));
+	height: 100%;
+	animation: slider 25s linear infinite;
+}
+main #slider #slides .slide{
+	width: 100%;
+	height: 100%;
+	transition: 0.5s;
+	font-size:1em;
+	cursor: pointer;
+	display: flex;
+	justify-content: left;
+	align-items: last baseline;
+	background-position: 50% 50%;
+}
+main #slider #slides .blur{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+	display: flex;
+	justify-content: left;
+	align-items: last baseline;
+}
 
-		main #slider #slides .slide .categoria{
-			position: absolute;
-			left: 50%;
-			top: 0%;
-			transform: translateX(-50%);
-			font-size: 2.5em;
-			letter-spacing: 10px;
-			color: white;
-		}
+main #slider #slides .slide .categoria{
+	position: absolute;
+	top:0;
+	width: 100%;
+	text-align: center;
+	letter-spacing: 10px;
+	color: white;
+	font-size:200%;
+}
 
-		main #slider #slides .slide1{
-			background-image:url(../img/musica.png);
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		main #slider #slides #slide2{
-			background-image:url(../img/festival.png);
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		main #slider #slides #slide3{
-			background-image:url(../img/teatro.png);
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		main #slider #slides #slide4{
-			background-image:url(../img/arte.png);
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		main #slider #slides #slide5{
-			background-image:url(../img/sport.png);
-			background-size: cover;
-			background-repeat: no-repeat;
-		}
-		main #slider #slides .slide .info{
-			width: 50%;
-			height: 50%;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
-			font-size: 3em;
-		}
-		main #slider #slides .slide .info p{
-			color:white;
-			font-size: 1em;
-			text-align: left;
-			width: 100%;
-			padding-left: 5px;
-			margin: 5px;
-			flex-grow: 0;
-		}
+main #slider #slides .slide1{
+	background-image:url(../img/musica.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+main #slider #slides #slide2{
+	background-image:url(../img/festival.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+main #slider #slides #slide3{
+	background-image:url(../img/teatro.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+main #slider #slides #slide4{
+	background-image:url(../img/arte.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+main #slider #slides #slide5{
+	background-image:url(../img/sport.png);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+main #slider #slides .slide .info{
+	width: 100%;
+	height: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+main #slider #slides .slide .info p{
+	color:white;
+	font-size: 200%;
+	text-align: left;
+	width: 100%;
+	padding-left: 5px;
+	margin: 5px;
+	flex-grow: 0;
+}
 
-		main .secondUnTerzoScreen{
-			gap: 5%;
-		}
+@keyframes slider {
+	0% {
+		transform: translateX(0%);
+	}
+	15% {
+		transform: translateX(0%);
+	}
+	20% {
+		transform: translateX(-16.66666666666667%);
+	}
+	35% {
+		transform: translateX(-16.66666666666667%);
+	}
+	40% {
+		transform: translateX(-33.33333333333333%);
+	}
+	55% {
+		transform: translateX(-33.33333333333333%);
+	}
+	60% {
+		transform: translateX(-50.00000000000001%);
+	}
+	75% {
+		transform: translateX(-50.00000000000001%);
+	}
+	80% {
+		transform: translateX(-66.66666666666668%);
+	}
+	95% {
+		transform: translateX(-66.66666666666668%);
+	}
+	100% {
+		transform: translateX(-83.33333333333335%);
+	}
+}
 
-		main .secondUnTerzoScreen p, main .secondUnTerzoScreen a{
-			width: 100%;
-			text-align: center;
-			text-decoration: none;
-			color: #000;
-			text-align: center;
-			flex-grow: 0;
-		}
+main .secondUnTerzoScreen p, main .secondUnTerzoScreen a{
+	width: 100%;
+	text-align: center;
+	text-decoration: none;
+	color: #000;
+	text-align: center;
+	flex-grow: 0;
+	flex-wrap: wrap;
+}
 
-		main .secondUnTerzoScreen div{
-			flex-grow: 1;
-			width: 100%;
-			gap: 5%;
-		}
+main .secondUnTerzoScreen div{
+	width: 100%;
+	gap: 3em;
+	flex-wrap: wrap;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
 
-		main .secondUnTerzoScreen div span{
-			height: 100%;
-			aspect-ratio: 1/1;
-			background-color: red;
-			position: relative;
-			overflow: hidden;
-			border-radius: 10px;
-			cursor: pointer;
-		}
+main .secondUnTerzoScreen div span{
+	flex:1 1 19.3%;
+	aspect-ratio: 1;
+	background-color: red;
+	position: relative;
+	overflow: hidden;
+	border-radius: 10px;
+	cursor: pointer;
+}
 
-		main .secondUnTerzoScreen div span:nth-child(1){
-			background-image: url(../img/TravisScot.png);
-			background-position: 50% 50%;
-			background-size: cover;
-		}
-		main .secondUnTerzoScreen div span:nth-child(2){
-			background-image: url(../img/drake.png);
-			background-position: 50% 50%;
-			background-size: cover;
-		}
-		main .secondUnTerzoScreen div span:nth-child(3){
-			background-image: url(../img/blanco.png);
-			background-position: 50% 50%;
-			background-size: cover;
-		}
-		main .secondUnTerzoScreen div span:nth-child(4){
-			background-image: url(../img/sferaEbbasta.png);
-			background-position: 50% 50%;
-			background-size: cover;
-		}
+main .secondUnTerzoScreen div span:nth-child(1){
+	background-image: url(../img/TravisScot.png);
+	background-position: 50% 50%;
+	background-size: cover;
+}
+main .secondUnTerzoScreen div span:nth-child(2){
+	background-image: url(../img/drake.png);
+	background-position: 50% 50%;
+	background-size: cover;
+}
+main .secondUnTerzoScreen div span:nth-child(3){
+	background-image: url(../img/blanco.png);
+	background-position: 50% 50%;
+	background-size: cover;
+}
+main .secondUnTerzoScreen div span:nth-child(4){
+	background-image: url(../img/sferaEbbasta.png);
+	background-position: 50% 50%;
+	background-size: cover;
+}
+
+main .secondUnTerzoScreen div span:nth-child(1)::after{
+	content: "Travis Scott";
+}
+
+main .secondUnTerzoScreen div span:nth-child(2)::after{
+	content: "Drake";
+}
+
+main .secondUnTerzoScreen div span:nth-child(3)::after{
+	content: "Blanco";
+}
+
+main .secondUnTerzoScreen div span:nth-child(4)::after{
+	content: "Sfera Ebbasta";
+}
+main .secondUnTerzoScreen div span::after{
+	content: "";
+	font-size: 1.5em;
+	font-weight: bold;
+	color: rgba(255, 255, 255, 0);
+	padding: 10px;
+	position: absolute;
+	bottom: -60%;
+	height: 40%;
+	width: 100%;
+	background:linear-gradient(black,rgba(0, 0, 0, 0.2));
+	transition: 0.2s;
+	letter-spacing: 4px;
+}
+main .secondUnTerzoScreen div span:hover::after{
+	bottom: 0;
+	color: white;
+}
+
+main .secondUnTerzoScreen > a{
+	background-color: var(--sColor);
+	border-radius: 10px;
+	padding: 8px;
+}
+
+footer{
+	margin-top: 7vh;
+	border-radius: 2em 2em 0 0;
+	width: 100%;
+	height: 50vh;
+	background-color: var(--pColor);
+}
+
+footer .footerContainer{
+	width: 60%;
+	height: 100%;
+}
+
+footer .footerContainer .footerSection{
+	width: 100%;
+}
+footer .footerContainer .footerSectionBottom{
+	height: 30%;
+	gap: 10%;
+}
+
+footer .footerContainer .footerSectionBottom img{
+	height: 30%;
+}
+footer .footerContainer .footerSectionBottom p{
+	color: rgba(255, 255, 255, 0.5);
+	text-align: center;
+	height: 30%;
+	font-size: 1.2em;
+}
+
+footer .footerContainer .footerSectionTop{
+	flex: 1;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.flexCenter{
+	display:flex;
+	justify-content:center;
+	align-items: center;
+}
+
+.noBorder{
+	border-top: 0px solid black;
+	border-right: 0px solid black;
+	border-bottom: 0px solid black;
+	border-left: 0px solid black;
+}
+
+.flexDirectionColumn{
+	flex-direction: column;
+}
+
+.buttonShadow{
+	box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 1);
+	transition:0.2s;
+	cursor: pointer;
+}
+
+.buttonShadow:hover{
+	box-shadow: 0px 7px 4px 0px rgba(0, 0, 0, 1);
+}
+
+.h2{
+	font-size:2.3em;
+}
+
+.fontBolder{
+	font-weight: 900;
+}
+
+.button{
+	width: 60%;
+	padding:5px;
+	border-radius: 0.5em;
+	font-size: 1.8em;
+	border: 0px solid black;
+	background-color: var(--sColor);
+}
+
+.hoverRotate1:hover{
+	transform: rotateZ(-1deg);
+}
+
+.hoverRotate2:hover{
+	transform: rotateZ(-10deg);
+}
+
+.gap{
+	gap:2em;
+}
 
 
-		main .secondUnTerzoScreen div span:nth-child(1)::after{
-			content: "Travis Scot";
-		}
 
-		main .secondUnTerzoScreen div span:nth-child(2)::after{
-			content: "Drake";
-		}
 
-		main .secondUnTerzoScreen div span:nth-child(3)::after{
-			content: "Blanco";
-		}
+@media (max-width: 760px) {
+	body{
+		font-size: 9px;
+	}
+	header .logo_nav .nav{
+		display: none;
+	}
+}
 
-		main .secondUnTerzoScreen div span:nth-child(4)::after{
-			content: "Sfera Ebbasta";
-		}
-		main .secondUnTerzoScreen div span::after{
-			content: "";
-			font-size: 1.5em;
-			font-weight: bold;
-			color: rgba(255, 255, 255, 0);
-			padding: 10px;
-			position: absolute;
-			bottom: -60%;
-			height: 40%;
-			width: 100%;
-			background:linear-gradient(black,rgba(0, 0, 0, 0.2));
-			transition: 0.2s;
-			letter-spacing: 4px;
-		}
-		main .secondUnTerzoScreen div span:hover::after{
-			bottom: 0;
-			color: white;
-		}
-
-		main .secondUnTerzoScreen > a{
-			background-color: var(--sColor);
-			border-radius: 10px;
-			padding: 8px;
-		}
-
-		footer{
-			margin-top: 7vh;
-			border-radius: 2em 2em 0 0;
-			width: 100%;
-			height: 50vh;
-			background-color: var(--pColor);
-		}
-
-		footer .footerContainer{
-			width: 60%;
-			height: 100%;
-		}
-
-		footer .footerContainer .footerSection{
-			width: 100%;
-		}
-		footer .footerContainer .footerSectionBottom{
-			height: 30%;
-			gap: 10%;
-		}
-
-		footer .footerContainer .footerSectionBottom img{
-			height: 30%;
-		}
-		footer .footerContainer .footerSectionBottom p{
-			color: rgba(255, 255, 255, 0.5);
-			text-align: center;
-			height: 30%;
-			font-size: 1.2em;
-		}
-
-		footer .footerContainer .footerSectionTop{
-			flex: 1;
-			border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-		}
-
-		.flexCenter{
-			display:flex;
-			justify-content:center;
-			align-items: center;
-		}
-		
-		.noBorder{
-			border-top: 0px solid black;
-			border-right: 0px solid black;
-			border-bottom: 0px solid black;
-			border-left: 0px solid black;
-		}
-
-		.flexDirectionColumn{
-			flex-direction: column;
-		}
-		
-		.buttonShadow{
-			box-shadow: 0px 10px 15px 0px rgba(0, 0, 0, 1);
-			transition:0.2s;
-			cursor: pointer;
-		}
-		
-		.buttonShadow:hover{
-			box-shadow: 0px 10px 8px 0px rgba(0, 0, 0, 1);
-			font-weight: 700;
-		}
-		
-		.h2{
-			font-size:2.3em;
-		}
-		
-		.fontBolder{
-			font-weight: 900;
-		}
-		
-		.button{
-			width: 40%;
-			padding:5px;
-			border-radius: 20px;
-			font-size: 1.8em;
-			border: 0px solid black;
-			background-color: var(--sColor);
-		}
-
-		@keyframes slider {
-			0% {
-				transform: translateX(0%);
-			}
-			15% {
-				transform: translateX(0%);
-			}
-			20% {
-				transform: translateX(-16.66666666666667%);
-			}
-			35% {
-				transform: translateX(-16.66666666666667%);
-			}
-			40% {
-				transform: translateX(-33.33333333333333%);
-			}
-			55% {
-				transform: translateX(-33.33333333333333%);
-			}
-			60% {
-				transform: translateX(-50.00000000000001%);
-			}
-			75% {
-				transform: translateX(-50.00000000000001%);
-			}
-			80% {
-				transform: translateX(-66.66666666666668%);
-			}
-			95% {
-				transform: translateX(-66.66666666666668%);
-			}
-			100% {
-				transform: translateX(-83.33333333333335%);
-			}
-
-		}
-
-		@keyframes downTop {
-			0% {
-				top:-20;
-			}
-		
-			50% {
-				top:20px;
-			}
-			
-			100% {
-				top:-20;
-			}
-
-		}
-
-		@keyframes topDown {
-			0% {
-				bottom:-20;
-			}
-		
-			50% {
-				bottom:20px;
-			}
-			
-			100% {
-				bottom:-20;
-			}
-
-		}
+@media (max-width: 600px) {
+	main .secondUnTerzoScreen div span{
+		flex: 1 1 43%; /* Corregge la dimensione degli elementi in base alla larghezza dello schermo */
+	}
+}

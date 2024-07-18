@@ -1,0 +1,67 @@
+#fotoArtistaGrande{
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: last baseline;
+    background-image: url("../img/TravisScot.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.blur{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	display: flex;
+    justify-content: center;
+    align-items: last baseline;
+}
+
+#fotoArtistaGrande>.blur>.infoArtista{
+    width: 70%;
+    min-height: 1vh;
+    color: white;
+    padding-bottom: 5px;
+}
+
+#fotoArtistaGrande>.blur>.infoArtista>span{
+    font-size: 5em;
+}
+
+#fotoArtistaGrande>.blur>.infoArtista>p{
+    font-size: 1.5em;
+}
+
+
+main>div{
+    width: 70%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 2%;
+}
+
+main>div .infoEvento{
+    display: flex;
+    justify-content: left;
+}
+main>div .infoEvento span{
+    font-size: 1.2em;
+}
+main>div .infoEvento span>ion-icon{
+    margin-right: 5px;
+}
+main>div .infoEvento .h3{
+    font-size: 2em;
+    font-weight: bold;
+}
+
+main>div>img{
+    width: 100px;
+    aspect-ratio: 1;
+    background-color: red;
+    border-radius: 1em;
+    object-fit: cover;
+}
