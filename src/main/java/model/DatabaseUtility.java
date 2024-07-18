@@ -21,6 +21,9 @@ public class DatabaseUtility {
     }
 
     public static Connection getConnection() throws SQLException {
+        if (dataSource == null) {
+            throw new SQLException("DataSource is null. Check your configuration.");
+        }
         return dataSource.getConnection();
     }
 }
