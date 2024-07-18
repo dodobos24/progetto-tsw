@@ -7,6 +7,6 @@
 </head>
 <body>
     <h1>Errore 404 - Pagina Non Trovata</h1>
-    <p>La pagina che stai cercando non esiste. Controlla l'URL o torna alla <a href="index.html">home page</a>.</p>
+    <p>La pagina che stai cercando non esiste. Controlla l'URL o torna alla <a href="index.jsp">home page</a>.</p>
 </body>
 </html>
