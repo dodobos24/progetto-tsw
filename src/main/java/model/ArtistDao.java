@@ -10,7 +10,7 @@ import java.util.List;
 public class ArtistDao implements ArtistDaoInterface {
 
     @Override
-    public void addArtist(ArtistBean artist) {
+    public void addArtist(ArtistBean artist)  throws SQLException {
         String sql = "INSERT INTO Artists (name, genre) VALUES (?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -24,7 +24,7 @@ public class ArtistDao implements ArtistDaoInterface {
     }
 
     @Override
-    public ArtistBean getArtistById(int id) {
+    public ArtistBean getArtistById(int id)  throws SQLException {
         String sql = "SELECT * FROM Artists WHERE id = ?";
         ArtistBean artist = null;
         try (Connection connection = DatabaseUtility.getConnection();
@@ -45,7 +45,7 @@ public class ArtistDao implements ArtistDaoInterface {
     }
 
     @Override
-    public List<ArtistBean> getAllArtists() {
+    public List<ArtistBean> getAllArtists()  throws SQLException {
         List<ArtistBean> artists = new ArrayList<>();
         String sql = "SELECT * FROM Artists";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -66,7 +66,7 @@ public class ArtistDao implements ArtistDaoInterface {
     }
 
     @Override
-    public void updateArtist(ArtistBean artist) {
+    public void updateArtist(ArtistBean artist)  throws SQLException {
         String sql = "UPDATE Artists SET name = ?, genre = ? WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -81,7 +81,7 @@ public class ArtistDao implements ArtistDaoInterface {
     }
 
     @Override
-    public void deleteArtist(int id) {
+    public void deleteArtist(int id)  throws SQLException {
         String sql = "DELETE FROM Artists WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

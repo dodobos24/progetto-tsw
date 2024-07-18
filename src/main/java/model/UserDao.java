@@ -10,7 +10,7 @@ import java.util.List;
 public class UserDao implements UserDaoInterface {
 
     @Override
-    public void addUser(UserBean user) {
+    public void addUser(UserBean user)  throws SQLException {
         String sql = "INSERT INTO Users (username, password, email, name, surname, admin) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -28,7 +28,7 @@ public class UserDao implements UserDaoInterface {
     }
     
     @Override
-	public UserBean doRetrieve(String username, String password) {
+	public UserBean doRetrieve(String username, String password)  throws SQLException {
     	String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
     	UserBean user = null;
     	try (Connection connection = DatabaseUtility.getConnection();
@@ -50,7 +50,7 @@ public class UserDao implements UserDaoInterface {
 	}
 
     @Override
-    public UserBean getUserById(int id) {
+    public UserBean getUserById(int id)  throws SQLException {
         String sql = "SELECT * FROM Users WHERE id = ?";
         UserBean user = null;
         try (Connection connection = DatabaseUtility.getConnection();
@@ -75,7 +75,7 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public List<UserBean> getAllUsers() {
+    public List<UserBean> getAllUsers() throws SQLException {
         List<UserBean> users = new ArrayList<>();
         String sql = "SELECT * FROM Users";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -100,7 +100,7 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public void updateUser(UserBean user) {
+    public void updateUser(UserBean user)  throws SQLException {
         String sql = "UPDATE Users SET username = ?, password = ?, email = ?, name = ?, surname = ?, admin = ? WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -119,7 +119,7 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public void deleteUser(int id) {
+    public void deleteUser(int id)  throws SQLException {
         String sql = "DELETE FROM Users WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {

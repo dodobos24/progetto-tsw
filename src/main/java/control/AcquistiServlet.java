@@ -1,29 +1,31 @@
 package control;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import model.UserBean;
-import model.UserDao;
+import model.TicketBean;
+import model.TicketDao;
 
 /**
- * Servlet implementation class RegistrazioneServlet
+ * Servlet implementation class AcquistiServlet
  */
-@WebServlet("/RegistrazioneServlet")
-public class RegistrazioneServlet extends HttpServlet {
+@WebServlet("/AcquistiServlet")
+public class AcquistiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private TicketDao ticketDao;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegistrazioneServlet() {
+    public AcquistiServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +35,21 @@ public class RegistrazioneServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
+		HttpSession session = request.getSession();
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        if (userId == null) {
+            response.sendRedirect("login.jsp");
+            return;
+        }
+
+        try {
+            List<TicketBean> userTickets = ticketDao.getTicketByUser(userId);
+            request.setAttribute("userTickets", userTickets);
+            request.getRequestDispatcher("userPurchases.jsp").forward(request, response);
+        } catch (SQLException e) {
+            throw new ServletException("Errore nel recupero dei biglietti dell'utente", e);
+        }
 	}
 
 	/**
@@ -41,27 +57,7 @@ public class RegistrazioneServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		UserDao dao = new UserDao();
-		String name = request.getParameter("nome");
-		String surname = request.getParameter("cognome");
-		String email = request.getParameter("email");
-		String username = request.getParameter("username");
-		String password = request.getParameter("password");
-		
-		try {
-			UserBean user = new UserBean();
-			user.setNome(name);
-			user.setCognome(surname);
-			user.setEmail(email);
-			user.setUsername(username);
-			user.setPassword(password);
-			user.setAdmin(false);
-			dao.addUser(user);
-					
-			response.sendRedirect(request.getContextPath() + "/Home.jsp");
-		} catch(SQLException e) {
-			System.out.println("Error:" + e.getMessage());
-		}
+		doGet(request, response);
 	}
 
 }

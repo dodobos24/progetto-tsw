@@ -12,11 +12,12 @@ public class EventBean implements Serializable {
 	private String description;
 	private String eventType;
 	private String organizer;
+	private String image;
 	private int artistId;
 	
 	public EventBean() {}
 	
-	public EventBean(int id, String name, LocalDateTime date, String venue, String description, String eventType, String organizer, int artistId) {
+	public EventBean(int id, String name, LocalDateTime date, String venue, String description, String eventType, String organizer, String image, int artistId) {
 		this.id=id;
 		this.name=name;
 		this.date=date;
@@ -24,6 +25,7 @@ public class EventBean implements Serializable {
 		this.description=description;
 		this.eventType=eventType;
 		this.organizer=organizer;
+		this.image=image;
 		this.artistId=artistId;
 	}
 	
@@ -47,6 +49,9 @@ public class EventBean implements Serializable {
 	
 	public String getOrganizer() { return organizer; }
 	public void setOrganizer(String organizer) { this.organizer=organizer; }
+	
+	public String getImage() { return image; }
+	public void setImage(String image) { this.image=image; }
 	
 	public int getArtistId() { return artistId; }
 	public void setArtistId(int artistId) { this.artistId=artistId; }

@@ -12,7 +12,7 @@ import java.util.List;
 public class CartDao implements CartDaoInterface {
 
     @Override
-    public void addCart(CartBean cart) {
+    public void addCart(CartBean cart)  throws SQLException {
         String sql = "INSERT INTO Carts (user_id, created_at) VALUES (?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -26,7 +26,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public CartBean getCartById(int cartId) {
+    public CartBean getCartById(int cartId)  throws SQLException {
         String sql = "SELECT * FROM Carts WHERE id = ?";
         CartBean cart = null;
         try (Connection connection = DatabaseUtility.getConnection();
@@ -48,7 +48,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public CartBean getCartByUserId(int userId) {
+    public CartBean getCartByUserId(int userId)  throws SQLException {
         String sql = "SELECT * FROM Carts WHERE user_id = ?";
         CartBean cart = null;
         try (Connection connection = DatabaseUtility.getConnection();
@@ -69,7 +69,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public void updateCart(CartBean cart) {
+    public void updateCart(CartBean cart)  throws SQLException {
         String sql = "UPDATE Carts SET user_id = ?, created_at = ? WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -84,7 +84,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public void deleteCart(int cartId) {
+    public void deleteCart(int cartId)  throws SQLException {
         String sql = "DELETE FROM Carts WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -97,7 +97,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public void addItemToCart(int cartId, CartItemBean item) {
+    public void addItemToCart(int cartId, CartItemBean item)  throws SQLException {
         String sql = "INSERT INTO CartItems (cart_id, event_id, quantity) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -112,7 +112,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public void updateCartItem(int cartId, CartItemBean item) {
+    public void updateCartItem(int cartId, CartItemBean item)  throws SQLException {
         String sql = "UPDATE CartItems SET event_id = ?, quantity = ? WHERE cart_id = ? AND item_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -128,7 +128,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public void removeItemFromCart(int cartId, int itemId) {
+    public void removeItemFromCart(int cartId, int itemId)  throws SQLException {
         String sql = "DELETE FROM CartItems WHERE cart_id = ? AND item_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -142,7 +142,7 @@ public class CartDao implements CartDaoInterface {
     }
 
     @Override
-    public List<CartItemBean> getItemsByCartId(int cartId) {
+    public List<CartItemBean> getItemsByCartId(int cartId)  throws SQLException {
         List<CartItemBean> items = new ArrayList<>();
         String sql = "SELECT * FROM CartItems WHERE cart_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();

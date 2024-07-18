@@ -12,8 +12,9 @@ import java.util.List;
 public class EventDao implements EventDaoInterface {
 
     @Override
-    public void addEvent(EventBean event) {
-        String sql = "INSERT INTO Events (name, date, venue, description, event_type, organizer, artist_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public void addEvent(EventBean event)  throws SQLException {
+    	String sql = "INSERT INTO Events (event_name, event_date, venue, description, event_type, organizer, image, artist_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
@@ -23,7 +24,8 @@ public class EventDao implements EventDaoInterface {
             statement.setString(4, event.getDescription());
             statement.setString(5, event.getEventType());
             statement.setString(6, event.getOrganizer());
-            statement.setInt(7, event.getArtistId());
+            statement.setString(7, event.getImage());
+            statement.setInt(8, event.getArtistId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -31,8 +33,8 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public EventBean getEventById(int id) {
-        String sql = "SELECT * FROM Events WHERE id = ?";
+    public EventBean getEventById(int id)  throws SQLException {
+        String sql = "SELECT * FROM Events WHERE event_id = ?";
         EventBean event = null;
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -40,14 +42,15 @@ public class EventDao implements EventDaoInterface {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                String name = resultSet.getString("name");
-                LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
+                String name = resultSet.getString("event_name");
+                LocalDateTime date = resultSet.getTimestamp("event_date").toLocalDateTime();
                 String venue = resultSet.getString("venue");
                 String description = resultSet.getString("description");
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
                 int artistId = resultSet.getInt("artist_id");
-                event = new EventBean(id, name, date, venue, description, eventType, organizer, artistId);
+                event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -57,7 +60,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getAllEvents() {
+    public List<EventBean> getAllEvents()  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         String sql = "SELECT * FROM Events";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -65,15 +68,16 @@ public class EventDao implements EventDaoInterface {
              ResultSet resultSet = statement.executeQuery()) {
             
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                LocalDateTime date = resultSet.getTimestamp("event_date").toLocalDateTime();
                 String venue = resultSet.getString("venue");
                 String description = resultSet.getString("description");
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, artistId);
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
                 events.add(event);
             }
         } catch (SQLException e) {
@@ -83,8 +87,8 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public void updateEvent(EventBean event) {
-        String sql = "UPDATE Events SET name = ?, date = ?, venue = ?, description = ?, event_type = ?, organizer = ?, artist_id = ? WHERE id = ?";
+    public void updateEvent(EventBean event)  throws SQLException {
+        String sql = "UPDATE Events SET event_name = ?, event_date = ?, venue = ?, description = ?, event_type = ?, organizer = ?, image = ?, artist_id = ? WHERE event_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
@@ -94,8 +98,9 @@ public class EventDao implements EventDaoInterface {
             statement.setString(4, event.getDescription());
             statement.setString(5, event.getEventType());
             statement.setString(6, event.getOrganizer());
-            statement.setInt(7, event.getArtistId());
-            statement.setInt(8, event.getId());
+            statement.setString(7,  event.getImage());
+            statement.setInt(8, event.getArtistId());
+            statement.setInt(9, event.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -103,8 +108,8 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public void deleteEvent(int id) {
-        String sql = "DELETE FROM Events WHERE id = ?";
+    public void deleteEvent(int id)  throws SQLException {
+        String sql = "DELETE FROM Events WHERE event_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
@@ -116,7 +121,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getEventsByArtist(int artistId) {
+    public List<EventBean> getEventsByArtist(int artistId)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         String sql = "SELECT * FROM Events WHERE artist_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -125,14 +130,15 @@ public class EventDao implements EventDaoInterface {
             statement.setInt(1, artistId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                LocalDateTime date = resultSet.getTimestamp("event_date").toLocalDateTime();
                 String venue = resultSet.getString("venue");
                 String description = resultSet.getString("description");
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, artistId);
+                String image = resultSet.getString("image");
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
                 events.add(event);
             }
             resultSet.close();
@@ -143,7 +149,7 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getEventsByType(String type) {
+    public List<EventBean> getEventsByType(String type)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         String sql = "SELECT * FROM Events WHERE event_type = ?";
         try (Connection connection = DatabaseUtility.getConnection();
@@ -152,15 +158,16 @@ public class EventDao implements EventDaoInterface {
             statement.setString(1, type);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                LocalDateTime date = resultSet.getTimestamp("date").toLocalDateTime();
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                LocalDateTime date = resultSet.getTimestamp("event_date").toLocalDateTime();
                 String venue = resultSet.getString("venue");
                 String description = resultSet.getString("description");
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, artistId);
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
                 events.add(event);
             }
             resultSet.close();
@@ -171,9 +178,9 @@ public class EventDao implements EventDaoInterface {
     }
 
     @Override
-    public List<EventBean> getEventsByOrganizerId(int organizerId) {
+    public List<EventBean> getEventsByOrganizerId(int organizerId)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
-        String sql = "SELECT * FROM Events WHERE organizer_id = ?";
+        String sql = "SELECT * FROM Events WHERE organizer = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
@@ -187,8 +194,9 @@ public class EventDao implements EventDaoInterface {
                 String description = resultSet.getString("description");
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, artistId);
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
                 events.add(event);
             }
             resultSet.close();
@@ -199,11 +207,11 @@ public class EventDao implements EventDaoInterface {
     }
     
     @Override
-    public List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist) {
+    public List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist)  throws SQLException {
         List<EventBean> events = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM Events WHERE 1=1");
         if (venue != null && !venue.trim().isEmpty()) sql.append(" AND venue = ?");
-        if (date != null) sql.append(" AND date = ?");
+        if (date != null) sql.append(" AND event_date = ?");
         if (eventType != null && !eventType.trim().isEmpty()) sql.append(" AND event_type = ?");
         if (artist != null && !artist.trim().isEmpty()) sql.append(" AND artist_id = ?");
 
@@ -234,8 +242,9 @@ public class EventDao implements EventDaoInterface {
                 String description = resultSet.getString("description");
                 String resultEventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, resultDate, resultVenue, description, resultEventType, organizer, artistId);
+                EventBean event = new EventBean(id, name, resultDate, resultVenue, description, resultEventType, organizer, image, artistId);
                 events.add(event);
             }
             resultSet.close();
