@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+:root{
+	--numSlides:6;
+	--pColor:#000;
+	--sColor:#FF8C42;
+	--supportColor:rgb(220, 220, 220);
+	--neutralColor:#FFFFFF;
+	--errorColor:#FF3B30;
+	--succesColor:#FF3B30;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Inter", sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	user-select: none;
+	letter-spacing: 1px;
+}
+
+body{
+	width:100%;
+	background-color: white;
+	font-size:10px;
+	line-height: 1.5;
+    min-height: 100vh;
+}
+
+form{
+    background-color: var(--supportColor);
+    padding: 2em;
+    border: 5px solid var(--pColor);
+    box-shadow: 0px 15px 20px 0px rgba(0, 0, 0, 0.7);
+    border-radius: 2em;
+}
+
+form input{
+    width: 100%;
+    padding: 5px;
+	font-size: 1.7em;
+	border: 0px solid black;
+	border-radius: 5px;
+}
+
+form input[type=submit]{
+    background-color: var(--sColor);
+}
+
+form span{
+    font-size: 1.2em;
+}
+a{
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--sColor);
+}
+.flexCenter{
+	display:flex;
+	justify-content:center;
+	align-items: center;
+}
+
+.noBorder{
+	border-top: 0px solid black;
+	border-right: 0px solid black;
+	border-bottom: 0px solid black;
+	border-left: 0px solid black;
+}
+
+.flexDirectionColumn{
+	flex-direction: column;
+}
+
+.buttonShadow{
+	box-shadow: 0px 5px 8px 0px rgba(0, 0, 0, 1);
+	transition:0.2s;
+	cursor: pointer;
+}
+
+.buttonShadow:hover{
+	box-shadow: 0px 7px 4px 0px rgba(0, 0, 0, 1);
+}
+
+.h2{
+	font-size:2.3em;
+}
+
+.fontBolder{
+	font-weight: 900;
+}
+
+.button{
+	width: 60%;
+	padding:5px;
+	border-radius: 0.5em;
+	font-size: 1.8em;
+	border: 0px solid black;
+	background-color: var(--sColor);
+}
+
+.hoverRotate1:hover{
+	transform: rotateZ(-1deg);
+}
+
+.hoverRotate2:hover{
+	transform: rotateZ(-10deg);
+}
+
+.gap{
+	gap:2em;
+}

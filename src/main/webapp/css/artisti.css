@@ -1,0 +1,47 @@
+body{
+    font-size: 10px;
+}
+
+.containerArtisti{
+    width: 80%;
+}
+
+.containerArtisti>span{
+    width: 100%;
+    border-radius: 2em;
+	border: 5px solid var(--pColor);
+}
+
+.containerArtisti>span>a{
+    width: 100%;
+    text-decoration: none;
+    color: black;
+    display: flex;
+    align-items: center;
+    gap: 2%;
+}
+
+.containerArtisti>span>a>span{
+    font-size: 2em;
+    font-weight: 900;
+}
+
+.containerArtisti>span>a>img{
+    width: 130px;
+    margin: 1em;
+    aspect-ratio: 1;
+    background-color: black;
+    border-radius: 1em;
+    object-fit: cover;
+}
+
+
+@media (max-width:770px) {
+    .containerArtisti>span>a>span{
+        font-size: 1.8em;
+        font-weight: 900;
+    }
+    .containerArtisti>span>a>img{
+        width: 80px;
+    }
+}
