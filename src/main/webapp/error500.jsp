@@ -8,6 +8,6 @@
 </head>
 <body>
     <h1>Errore 500 - Errore Interno del Server</h1>
-    <p>Si è verificato un problema con il server. Si prega di riprovare più tardi.</p>
+    <p>Si è verificato un problema con il server. Si prega di riprovare più tardi.<a href="index.jsp">home page</a></p>
 </body>
 </html>
