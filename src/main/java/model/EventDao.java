@@ -253,5 +253,65 @@ public class EventDao implements EventDaoInterface {
         }
         return events;
     }
+    
+    @Override
+    public List<EventBean> getTrendingEvents() throws SQLException {
+        List<EventBean> events = new ArrayList<>();
+        String sql = "SELECT event_id, event_name, event_date, venue, event_type, organizer, image, artist_id" +
+        			 "FROM Events e" +
+        			 "WHERE e.event_date = (" +
+        		     "SELECT MIN(e2.event_date)" +
+        		     "FROM Events e2" +
+        		     "WHERE e2.event_type = e.event_type" +
+        			 ");";
+
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                LocalDateTime date = resultSet.getTimestamp("event_date").toLocalDateTime();
+                String venue = resultSet.getString("venue");
+                String description = resultSet.getString("description");
+                String eventType = resultSet.getString("event_type");
+                String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
+                int artistId = resultSet.getInt("artist_id");
+
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+
+    private EventBean getEventByDateAndType(String eventType, LocalDateTime date) throws SQLException {
+        String sql = "SELECT * FROM Events WHERE event_type = ? AND event_date = ? LIMIT 1";
+        EventBean event = null;
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, eventType);
+            statement.setTimestamp(2, Timestamp.valueOf(date));
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                String venue = resultSet.getString("venue");
+                String description = resultSet.getString("description");
+                String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
+                int artistId = resultSet.getInt("artist_id");
+                event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return event;
+    }
+
 }
 

@@ -13,3 +13,14 @@ document.getElementById('cerca').addEventListener('submit', function(event) {
         alert('Almeno un campo deve essere compilato.');
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const slides = document.getElementById('slides');
+    const slide = document.querySelectorAll('.slide');
+    let currentIndex = 0;
+
+    setInterval(() => {
+        currentIndex = (currentIndex + 1) % slide.length;
+        slides.style.transform = `translateX(-${currentIndex * 100}%)`;
+    }, 3000);
+});
