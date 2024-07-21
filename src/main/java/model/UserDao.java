@@ -47,6 +47,7 @@ public class UserDao implements UserDaoInterface {
                 user.setEmail(rs.getString("email"));
                 user.setNome(rs.getString("first_name"));
                 user.setCognome(rs.getString("last_name"));
+                user.setSaldo(rs.getFloat("saldo"));
                 user.setAdmin(rs.getBoolean("admin"));
                 user.setValid(true);
             }
@@ -72,8 +73,9 @@ public class UserDao implements UserDaoInterface {
                 String email = resultSet.getString("email");
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
+                float saldo = resultSet.getFloat("saldo");
                 boolean admin = resultSet.getBoolean("admin");
-                user = new UserBean(id, username, password, email, name, surname, admin);
+                user = new UserBean(id, username, password, email, name, surname, saldo, admin);
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -96,8 +98,9 @@ public class UserDao implements UserDaoInterface {
                 String email = resultSet.getString("email");
                 String firstName = resultSet.getString("first_name");
                 String lastName = resultSet.getString("last_name");
+                float saldo = resultSet.getFloat("saldo");
                 boolean isAdmin = resultSet.getBoolean("admin");
-                user = new UserBean(userId, username, password, email, firstName, lastName, isAdmin);
+                user = new UserBean(userId, username, password, email, firstName, lastName, saldo, isAdmin);
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -121,8 +124,9 @@ public class UserDao implements UserDaoInterface {
                 String email = resultSet.getString("email");
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
+                float saldo = resultSet.getFloat("saldo");
                 boolean admin = resultSet.getBoolean("admin");
-                UserBean user = new UserBean(id, username, password, email, name, surname, admin);
+                UserBean user = new UserBean(id, username, password, email, name, surname, saldo, admin);
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -132,23 +136,30 @@ public class UserDao implements UserDaoInterface {
     }
 
     @Override
-    public void updateUser(UserBean user)  throws SQLException {
-        String sql = "UPDATE Users SET username = ?, password = ?, email = ?, name = ?, surname = ?, admin = ? WHERE id = ?";
+    public void updateUser(UserBean user) throws SQLException {
+        String sql = "UPDATE Users SET username = ?, password = ?, email = ?, first_name = ?, last_name = ?, saldo = ?, admin = ? WHERE user_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
+
+            System.out.println("Updating user with ID: " + user.getId());
+            System.out.println("New balance: " + user.getSaldo());
 
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
             statement.setString(3, user.getEmail());
             statement.setString(4, user.getNome());
             statement.setString(5, user.getCognome());
-            statement.setBoolean(6, user.isAdmin());
-            statement.setInt(7, user.getId());
-            statement.executeUpdate();
+            statement.setFloat(6, user.getSaldo());
+            statement.setBoolean(7, user.isAdmin());
+            statement.setInt(8, user.getId());
+
+            int rowsAffected = statement.executeUpdate();
+            System.out.println("Rows affected: " + rowsAffected);
         } catch (SQLException e) {
-            e.printStackTrace();
+        	e.printStackTrace();
         }
     }
+
 
     @Override
     public void deleteUser(int id)  throws SQLException {

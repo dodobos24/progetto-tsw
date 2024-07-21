@@ -111,3 +111,25 @@ a{
 .gap{
 	gap:2em;
 }
+
+/* textarea*/
+textarea{
+	width: 100%;
+	height: 200px;
+}
+
+#addEvents{
+    width: 500px;
+    max-width: 95%;
+}
+
+/* Esempio di stili CSS per il menu a tendina */
+select.buttonShadow {
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+}
+

@@ -53,8 +53,8 @@ public class ArtistDao implements ArtistDaoInterface {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
+                int id = resultSet.getInt("artist_id");
+                String name = resultSet.getString("artist_name");
                 String genre = resultSet.getString("genre");
                 ArtistBean artist = new ArtistBean(id, name, genre);
                 artists.add(artist);

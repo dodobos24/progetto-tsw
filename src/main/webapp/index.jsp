@@ -150,7 +150,7 @@
         %>
             <nav class="adminNav">
                 <ul>
-                    <li><a href="admin/aggiungiEventi.jsp" style="color:green;">Aggiungi Eventi</a></li>
+                    <li><a href="admin/addEvents.jsp" style="color:green;">Aggiungi Eventi</a></li>
                 </ul>
             </nav>
         <%

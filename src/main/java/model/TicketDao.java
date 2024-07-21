@@ -13,15 +13,13 @@ public class TicketDao implements TicketDaoInterface {
 
     @Override
     public void addTicket(TicketBean ticket)  throws SQLException {
-        String sql = "INSERT INTO Tickets (event_id, user_id, purchase_date, seat_number, price) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Tickets (event_id, user_id, purchase_date) VALUES (?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
             statement.setInt(1, ticket.getEventId());
             statement.setInt(2, ticket.getUserId());
             statement.setTimestamp(3, Timestamp.valueOf(ticket.getPurchaseDate()));
-            statement.setString(4, ticket.getSeatNumber());
-            statement.setFloat(5, ticket.getPrice());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,9 +39,7 @@ public class TicketDao implements TicketDaoInterface {
                 int eventId = resultSet.getInt("event_id");
                 int userId = resultSet.getInt("user_id");
                 LocalDateTime purchaseDate = resultSet.getTimestamp("purchase_date").toLocalDateTime();
-                String seatNumber = resultSet.getString("seat_number");
-                float price = resultSet.getFloat("price");
-                ticket = new TicketBean(id, eventId, userId, purchaseDate, seatNumber, price);
+                ticket = new TicketBean(id, eventId, userId, purchaseDate);
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -65,9 +61,7 @@ public class TicketDao implements TicketDaoInterface {
                 int eventId = resultSet.getInt("event_id");
                 int userId = resultSet.getInt("user_id");
                 LocalDateTime purchaseDate = resultSet.getTimestamp("purchase_date").toLocalDateTime();
-                String seatNumber = resultSet.getString("seat_number");
-                float price = resultSet.getFloat("price");
-                TicketBean ticket = new TicketBean(id, eventId, userId, purchaseDate, seatNumber, price);
+                TicketBean ticket = new TicketBean(id, eventId, userId, purchaseDate);
                 tickets.add(ticket);
             }
         } catch (SQLException e) {
@@ -78,15 +72,13 @@ public class TicketDao implements TicketDaoInterface {
 
     @Override
     public void updateTicket(TicketBean ticket)  throws SQLException {
-        String sql = "UPDATE Tickets SET event_id = ?, user_id = ?, purchase_date = ?, seat_number = ?, price = ? WHERE id = ?";
+        String sql = "UPDATE Tickets SET event_id = ?, user_id = ?, purchase_date = ? WHERE id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
             statement.setInt(1, ticket.getEventId());
             statement.setInt(2, ticket.getUserId());
             statement.setTimestamp(3, Timestamp.valueOf(ticket.getPurchaseDate()));
-            statement.setString(4, ticket.getSeatNumber());
-            statement.setFloat(5, ticket.getPrice());
             statement.setInt(6, ticket.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -120,9 +112,7 @@ public class TicketDao implements TicketDaoInterface {
                 int id = resultSet.getInt("id");
                 int eventId = resultSet.getInt("event_id");
                 LocalDateTime purchaseDate = resultSet.getTimestamp("purchase_date").toLocalDateTime();
-                String seatNumber = resultSet.getString("seat_number");
-                float price = resultSet.getFloat("price");
-                TicketBean ticket = new TicketBean(id, eventId, userId, purchaseDate, seatNumber, price);
+                TicketBean ticket = new TicketBean(id, eventId, userId, purchaseDate);
                 tickets.add(ticket);
             }
             resultSet.close();
@@ -145,9 +135,7 @@ public class TicketDao implements TicketDaoInterface {
                 int id = resultSet.getInt("id");
                 int userId = resultSet.getInt("user_id");
                 LocalDateTime purchaseDate = resultSet.getTimestamp("purchase_date").toLocalDateTime();
-                String seatNumber = resultSet.getString("seat_number");
-                float price = resultSet.getFloat("price");
-                TicketBean ticket = new TicketBean(id, eventId, userId, purchaseDate, seatNumber, price);
+                TicketBean ticket = new TicketBean(id, eventId, userId, purchaseDate);
                 tickets.add(ticket);
             }
             resultSet.close();

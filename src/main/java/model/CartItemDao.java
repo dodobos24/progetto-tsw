@@ -82,7 +82,7 @@ public class CartItemDao implements CartItemDaoInterface {
 	        statement.setInt(1, cartId);
 	        ResultSet resultSet = statement.executeQuery();
 	        while (resultSet.next()) {
-	            int cartItemId = resultSet.getInt("item_id");
+	            int cartItemId = resultSet.getInt("cart_item_id");
 	            int eventId = resultSet.getInt("event_id");
 	            int quantity = resultSet.getInt("quantity");
 	            CartItemBean cartItem = new CartItemBean(cartItemId, cartId, eventId, quantity);
@@ -130,4 +130,15 @@ public class CartItemDao implements CartItemDaoInterface {
             }
         }
     }
+    
+    @Override
+    public void clearCart(int cartId) throws SQLException {
+        String query = "DELETE FROM cartitems WHERE cart_id = ?";
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, cartId);
+            statement.executeUpdate();
+        }
+    }
+
 }

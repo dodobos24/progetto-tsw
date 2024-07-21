@@ -29,7 +29,7 @@
     <link rel="icon" type="image/png" href="./img/favicon.png" />
 </head>
 <body>
-	<script>
+    <script>
         var isAuthenticated = <%= isAuthenticated %>;
     </script>
 
@@ -37,8 +37,10 @@
     <main>
         <section class="firstSection">
             <div class="cartContainer">
-                <h1>Il tuo Carrello</h1>
+                <p><strong>Saldo:</strong> <%= user.getSaldo() %> $</p>
+                <h1>Il tuo carrello</h1>
                 <%
+                    float cartTotal = 0.0f;
                     try (Connection connection = DatabaseUtility.getConnection()) {
                         String query = "SELECT events.event_id, events.event_name, events.event_date, events.price, events.venue, artists.artist_name, cartitems.quantity " +
                                        "FROM events " +
@@ -52,7 +54,6 @@
                             statement.setInt(1, user.getId());
                             ResultSet resultSet = statement.executeQuery();
 
-                            // Debugging result count
                             int rowCount = 0;
 
                             out.println("<table class='cartTable'>");
@@ -80,6 +81,7 @@
                                 int quantity = resultSet.getInt("quantity");
 
                                 float totalPrice = quantity * price;
+                                cartTotal += totalPrice;
 
                                 out.println("<tr>");
                                 out.println("<td>" + eventName + "</td>");
@@ -99,6 +101,13 @@
 
                             if (rowCount == 0) {
                                 out.println("<p>Il tuo carrello è vuoto.</p>");
+                            } else {
+                            	out.println("<div class='total-container'><p><strong>Totale Carrello:</strong> " + cartTotal + " €</p></div>");
+                                out.println("<div class='button-container'>");
+                                out.println("<form action='BuyServlet' method='post'>");
+                                out.println("<button type='submit' id='buyButton'>Acquista</button>");
+                                out.println("</form>");
+                                out.println("</div>");
                             }
                         }
                     } catch (SQLException e) {

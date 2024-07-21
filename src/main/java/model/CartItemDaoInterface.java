@@ -11,4 +11,5 @@ public interface CartItemDaoInterface {
     void updateCartItem(CartItemBean cartItem) throws SQLException;
     void deleteCartItem(int cartItemId) throws SQLException;
     void addOrUpdateCartItem(CartItemBean item) throws SQLException;
+    void clearCart(int cartId) throws SQLException;
 }

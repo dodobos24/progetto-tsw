@@ -9,18 +9,14 @@ public class TicketBean implements Serializable{
 	private int eventId;
 	private int userId;
 	private LocalDateTime purchaseDate;
-	private String seatNumber;
-	private float price;
 	
 	public TicketBean() {}
 	
-	public TicketBean(int id, int eventId, int userId, LocalDateTime purchaseDate, String seatNumber, float price) {
+	public TicketBean(int id, int eventId, int userId, LocalDateTime purchaseDate) {
 		this.id=id;
 		this.eventId=eventId;
 		this.userId=userId;
 		this.purchaseDate=purchaseDate;
-		this.seatNumber=seatNumber;
-		this.price=price;
 	}
 	
 	public int getId() { return id; }
@@ -34,10 +30,4 @@ public class TicketBean implements Serializable{
 	
 	public LocalDateTime getPurchaseDate() { return purchaseDate; }
 	public void setPurchaseDate(LocalDateTime purchaseDate) { this.purchaseDate=purchaseDate; }
-	
-	public String getSeatNumber() { return seatNumber; }
-	public void setSeatNumber(String seatNumber) { this.seatNumber=seatNumber; }
-	
-	public float getPrice() { return price; }
-	public void setPrice(float price) { this.price=price; }
 }

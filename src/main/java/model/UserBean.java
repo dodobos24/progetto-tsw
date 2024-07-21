@@ -10,18 +10,20 @@ public class UserBean implements Serializable {
 	private String email;
 	private String name;
 	private String surname;
+	private float saldo;
 	private boolean admin;
 	private boolean valid;
 	
 	public UserBean() {}
 	
-	public UserBean(int id, String username, String password, String email, String name, String surname, boolean admin) {
+	public UserBean(int id, String username, String password, String email, String name, String surname, float saldo, boolean admin) {
 		this.id=id;
 		this.username=username;
 		this.password=password;
 		this.email=email;
 		this.name=name;
 		this.surname=surname;
+		this.saldo=saldo;
 		this.admin=admin;
 	}
 	
@@ -42,6 +44,9 @@ public class UserBean implements Serializable {
 	
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password=password; }
+	
+	public float getSaldo() { return saldo; }
+	public void setSaldo(float saldo) { this.saldo=saldo; }
 	
 	public boolean isAdmin() { return admin; }
 	public void setAdmin(boolean admin) { this.admin=admin; }

@@ -10,6 +10,7 @@ CREATE TABLE Users (
     email VARCHAR(100) NOT NULL UNIQUE,
     first_name VARCHAR(50),
     last_name VARCHAR(50),
+    saldo FLOAT NOT NULL DEFAULT 0,
     admin TINYINT(1) NOT NULL
 );
 
@@ -41,8 +42,6 @@ CREATE TABLE Tickets (
     event_id INT,
     user_id INT,
     purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    seat_number VARCHAR(10),
-    price DECIMAL(10, 2),
     FOREIGN KEY (event_id) REFERENCES Events(event_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
