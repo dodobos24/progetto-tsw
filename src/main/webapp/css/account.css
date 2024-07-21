@@ -1,0 +1,82 @@
+@charset "ISO-8859-1";
+
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .profileSection {
+		    padding: 40px;
+		    background-color: #f4f4f4;
+		    text-align: center;
+		    margin-top: 120px;
+		}
+
+        .profileContainer {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .profileDetails {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .profileDetails p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .profileDetails strong {
+            display: inline-block;
+            width: 150px;
+            color: #555;
+        }
+        
+        #logoutButton {
+        	display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: red;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        
+        #logoutButton:hover {
+        	background-color: #c82333;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        #purchasesButton {
+        	display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+        
+        #purchasesButton:hover {
+        	background-color: #0056b3;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }

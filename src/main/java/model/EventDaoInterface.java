@@ -14,4 +14,5 @@ public interface EventDaoInterface {
     List<EventBean> getEventsByType(String type) throws SQLException;
     List<EventBean> getEventsByOrganizerId(int organizerId) throws SQLException;
     List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist) throws SQLException;
+    List<EventBean> getTrendingEvents() throws SQLException;
 }

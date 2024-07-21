@@ -159,6 +159,7 @@ main .firstSection > span{
 	background-image:url(../img/sfondo.png);
 	background-size:cover;
 	background-repeat:no-repeat;
+	background-position: bottom;
 	display:flex;
 	justify-content:center;
 	align-items:center;
@@ -473,33 +474,47 @@ main .secondUnTerzoScreen > a{
 
 footer{
 	margin-top: 7vh;
-	border-radius: 2em 2em 0 0;
+	border-radius: 0;
 	width: 100%;
-	height: 50vh;
+	height: 20vh;
 	background-color: var(--pColor);
+	box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.7);
 }
 
 footer .footerContainer{
 	width: 60%;
-	height: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 footer .footerContainer .footerSection{
 	width: 100%;
 }
 footer .footerContainer .footerSectionBottom{
-	height: 30%;
+	height: 70%;
 	gap: 10%;
+	height: 70%;
+    gap: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
 }
 
 footer .footerContainer .footerSectionBottom img{
-	height: 30%;
+	height: 40%;
+	margin-bottom: 3px;
 }
 footer .footerContainer .footerSectionBottom p{
 	color: rgba(255, 255, 255, 0.5);
 	text-align: center;
-	height: 30%;
+	height: 70%;
 	font-size: 1.2em;
+	margin: 0;
 }
 
 footer .footerContainer .footerSectionTop{
@@ -567,16 +582,216 @@ footer .footerContainer .footerSectionTop{
 
 
 @media (max-width: 760px) {
-	body{
-		font-size: 9px;
-	}
-	header .logo_nav .nav{
-		display: none;
-	}
+    body {
+        font-size: 9px;
+    }
+    header .logo_nav .nav {
+        display: none;
+    }
 }
 
 @media (max-width: 600px) {
-	main .secondUnTerzoScreen div span{
-		flex: 1 1 43%; /* Corregge la dimensione degli elementi in base alla larghezza dello schermo */
-	}
+    main .secondUnTerzoScreen div span {
+        flex: 1 1 43%;
+    }
 }
+
+/* Aggiungi uno stile per la sezione degli eventi */
+.eventsSection {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.eventsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Stile per ogni card dell'evento */
+.eventCard {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.eventCard:hover {
+    transform: scale(1.05);
+}
+
+/* Stile per l'immagine dell'evento */
+.eventImage img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Dettagli dell'evento */
+.eventDetails {
+    padding: 15px;
+}
+
+.eventDate,
+.eventVenue,
+.eventDescription,
+.eventOrganizer {
+    margin: 10px 0;
+}
+
+.eventDescription {
+    font-size: 0.9em;
+    color: #555;
+}
+
+/* Aggiungi spaziatura */
+.eventDetails h3 {
+    margin-top: 0;
+}
+
+#BuyButton {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+        
+#BuyButton:hover {
+     background-color: #0056b3;
+     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+
+/* Styles for the modal */
+.modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto; 
+      background-color: rgba(0, 0, 0, 0.6); 
+      animation: fadeIn 0.5s; 
+}
+
+.modal-content {
+      background-color: #fff;
+      margin: 10% auto; 
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 500px;
+      animation: zoomIn 0.5s; 
+}
+
+.modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 10px;
+}
+
+.modal-header h2 {
+      margin: 0;
+      font-size: 1.5em;
+}
+
+.modal-header .close {
+      color: #aaa;
+      font-size: 1.5em;
+      cursor: pointer;
+}
+
+.modal-header .close:hover,
+.modal-header .close:focus {
+      color: #000;
+ }
+
+.modal-body {
+      padding: 20px 0;
+}
+
+.modal-body label {
+      font-weight: bold;
+}
+
+.modal-body input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1em;
+}
+
+.modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      padding-top: 10px;
+}
+
+.modal-footer button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      background-color: #28a745;
+      color: #fff;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+}
+
+.modal-footer button:hover {
+      background-color: #218838;
+}
+
+@keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+      from { transform: scale(0.7); }
+      to { transform: scale(1); }
+}
+
+/* Admin NavBar */
+nav, .adminNav {
+    display: flex;
+    align-items: center;
+}
+
+nav ul, .adminNav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li, .adminNav ul li {
+    margin-right: 20px;
+}
+
+.adminNav {
+    margin-top: 20px;
+}
+
+.admin-only {
+  display: none;
+}
+
+

@@ -8,18 +8,14 @@ public class CartItemBean implements Serializable{
 	private int cartId;
 	private int eventId;
 	private int quantity;
-	private String seatNumber;
-	private float price;
 	
 	public CartItemBean() {}
 	
-	public CartItemBean(int id, int cartId, int eventId, int quantity, String seatNumber, float price) {
+	public CartItemBean(int id, int cartId, int eventId, int quantity) {
 		this.id=id;
 		this.cartId=cartId;
 		this.eventId=eventId;
 		this.quantity=quantity;
-		this.seatNumber=seatNumber;
-		this.price=price;
 	}
 	
 	public int getId() { return id; }
@@ -33,10 +29,4 @@ public class CartItemBean implements Serializable{
 	
 	public int getQuantity() { return quantity; }
 	public void setQuantity(int quantity) { this.quantity=quantity; }
-	
-	public String getSeatNumber() { return seatNumber; }
-	public void setSeatNumber(String seatNumber) { this.seatNumber=seatNumber; }
-	
-	public float getPrice() { return price; }
-	public void setPrice(float price) { this.price=price; }
 }

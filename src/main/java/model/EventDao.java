@@ -13,7 +13,7 @@ public class EventDao implements EventDaoInterface {
 
     @Override
     public void addEvent(EventBean event)  throws SQLException {
-    	String sql = "INSERT INTO Events (event_name, event_date, venue, description, event_type, organizer, image, artist_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+    	String sql = "INSERT INTO Events (event_name, event_date, venue, description, event_type, organizer, image, price, artist_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -25,7 +25,8 @@ public class EventDao implements EventDaoInterface {
             statement.setString(5, event.getEventType());
             statement.setString(6, event.getOrganizer());
             statement.setString(7, event.getImage());
-            statement.setInt(8, event.getArtistId());
+            statement.setFloat(8, event.getPrice());
+            statement.setInt(9, event.getArtistId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -49,8 +50,9 @@ public class EventDao implements EventDaoInterface {
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
                 String image = resultSet.getString("image");
+                float price = resultSet.getFloat("price");
                 int artistId = resultSet.getInt("artist_id");
-                event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
+                event = new EventBean(id, name, date, venue, description, eventType, organizer, image, price, artistId);
             }
             resultSet.close();
         } catch (SQLException e) {
@@ -76,8 +78,9 @@ public class EventDao implements EventDaoInterface {
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
                 String image = resultSet.getString("image");
+                float price = resultSet.getFloat("price");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, price, artistId);
                 events.add(event);
             }
         } catch (SQLException e) {
@@ -99,8 +102,9 @@ public class EventDao implements EventDaoInterface {
             statement.setString(5, event.getEventType());
             statement.setString(6, event.getOrganizer());
             statement.setString(7,  event.getImage());
-            statement.setInt(8, event.getArtistId());
-            statement.setInt(9, event.getId());
+            statement.setFloat(8, event.getPrice());
+            statement.setInt(9, event.getArtistId());
+            statement.setInt(10, event.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,7 +142,8 @@ public class EventDao implements EventDaoInterface {
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
                 String image = resultSet.getString("image");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
+                float price = resultSet.getFloat("price");
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, price, artistId);
                 events.add(event);
             }
             resultSet.close();
@@ -156,6 +161,7 @@ public class EventDao implements EventDaoInterface {
              PreparedStatement statement = connection.prepareStatement(sql)) {
             
             statement.setString(1, type);
+            System.out.println("Executing query: " + statement);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt("event_id");
@@ -166,14 +172,16 @@ public class EventDao implements EventDaoInterface {
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
                 String image = resultSet.getString("image");
+                float price = resultSet.getFloat("price");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, price, artistId);
                 events.add(event);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        System.out.println("Number of events found: " + events.size());
         return events;
     }
 
@@ -195,8 +203,9 @@ public class EventDao implements EventDaoInterface {
                 String eventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
                 String image = resultSet.getString("image");
+                float price = resultSet.getFloat("price");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, artistId);
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, price, artistId);
                 events.add(event);
             }
             resultSet.close();
@@ -243,8 +252,9 @@ public class EventDao implements EventDaoInterface {
                 String resultEventType = resultSet.getString("event_type");
                 String organizer = resultSet.getString("organizer");
                 String image = resultSet.getString("image");
+                float price = resultSet.getFloat("price");
                 int artistId = resultSet.getInt("artist_id");
-                EventBean event = new EventBean(id, name, resultDate, resultVenue, description, resultEventType, organizer, image, artistId);
+                EventBean event = new EventBean(id, name, resultDate, resultVenue, description, resultEventType, organizer, image, price, artistId);
                 events.add(event);
             }
             resultSet.close();
@@ -253,5 +263,67 @@ public class EventDao implements EventDaoInterface {
         }
         return events;
     }
+    
+    @Override
+    public List<EventBean> getTrendingEvents() throws SQLException {
+        List<EventBean> events = new ArrayList<>();
+        String sql = "SELECT event_id, event_name, event_date, venue, event_type, organizer, image, artist_id" +
+        			 "FROM Events e" +
+        			 "WHERE e.event_date = (" +
+        		     "SELECT MIN(e2.event_date)" +
+        		     "FROM Events e2" +
+        		     "WHERE e2.event_type = e.event_type" +
+        			 ");";
+
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                LocalDateTime date = resultSet.getTimestamp("event_date").toLocalDateTime();
+                String venue = resultSet.getString("venue");
+                String description = resultSet.getString("description");
+                String eventType = resultSet.getString("event_type");
+                String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
+                float price = resultSet.getFloat("price");
+                int artistId = resultSet.getInt("artist_id");
+
+                EventBean event = new EventBean(id, name, date, venue, description, eventType, organizer, image, price, artistId);
+                events.add(event);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return events;
+    }
+
+
+    private EventBean getEventByDateAndType(String eventType, LocalDateTime date) throws SQLException {
+        String sql = "SELECT * FROM Events WHERE event_type = ? AND event_date = ? LIMIT 1";
+        EventBean event = null;
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, eventType);
+            statement.setTimestamp(2, Timestamp.valueOf(date));
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                String venue = resultSet.getString("venue");
+                String description = resultSet.getString("description");
+                String organizer = resultSet.getString("organizer");
+                String image = resultSet.getString("image");
+                float price = resultSet.getFloat("price");
+                int artistId = resultSet.getInt("artist_id");
+                event = new EventBean(id, name, date, venue, description, eventType, organizer, image, price, artistId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return event;
+    }
 }
+
 

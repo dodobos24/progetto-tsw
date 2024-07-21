@@ -46,21 +46,23 @@ public class LoginServlet extends HttpServlet {
 		UserDao usDao = new UserDao();
 		
 		try {
-			UserBean user = new UserBean();
-			 user.setUsername(request.getParameter("un"));
-			 user.setPassword(request.getParameter("pw"));
-			 user = usDao.doRetrieve(request.getParameter("un"),request.getParameter("pw"));
-			   		    
-			 String checkout = request.getParameter("checkout");
-			 
-			 if (user.isValid()) {
-			      HttpSession session = request.getSession(true);	    
-			      session.setAttribute("currentSessionUser",user); 
-			      if(checkout!=null) response.sendRedirect(request.getContextPath() + "/account?page=Checkout.jsp");
-			      else response.sendRedirect(request.getContextPath() + "/Home.jsp");
-			 }   else response.sendRedirect(request.getContextPath() +"/Login.jsp?action=error");
-		} catch(SQLException e) {
-			System.out.println("Error:" + e.getMessage());
-		}
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+
+            UserBean user = usDao.doRetrieve(email, password);
+
+            if (user != null && user.isValid()) {
+                HttpSession session = request.getSession(true);
+                session.setAttribute("currentSessionUser", user);
+                response.sendRedirect(request.getContextPath() + "/account.jsp");
+            } else {
+                request.setAttribute("errorMessage", "Invalid email or password.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            request.setAttribute("errorMessage", "Database error: " + e.getMessage());
+            request.getRequestDispatcher("login.jsp").forward(request, response);
+        }
 	}
 }

@@ -2,6 +2,8 @@ package control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +17,7 @@ import model.CartDaoInterface;
 import model.CartItemBean;
 import model.CartItemDao;
 import model.CartItemDaoInterface;
+import model.UserBean;
 
 @WebServlet("/CarrelloServlet")
 public class CarrelloServlet extends HttpServlet {
@@ -30,14 +33,27 @@ public class CarrelloServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        CartBean cart = (CartBean) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new CartBean();
-            session.setAttribute("cart", cart);
+        UserBean user = (UserBean) session.getAttribute("currentSessionUser");
+
+        if (user == null) {
+            response.sendRedirect("login.jsp");
+            return;
         }
 
-        String action = request.getParameter("action");
+        int userId = user.getId();
+        CartBean cart = null;
+
         try {
+            cart = cartDao.getCartByUserId(userId);
+
+            if (cart == null) {
+                cart = new CartBean();
+                cart.setUserId(userId);
+                cart.setCreatedAt(LocalDateTime.now());
+                cartDao.addCart(cart);
+            }
+
+            String action = request.getParameter("action");
             if (action != null) {
                 switch (action) {
                     case "addToCart":
@@ -53,7 +69,7 @@ public class CarrelloServlet extends HttpServlet {
                         break;
                 }
             }
-            response.sendRedirect(request.getParameter("page"));
+            response.sendRedirect("cart.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
             throw new ServletException("Database error", e);
@@ -63,22 +79,18 @@ public class CarrelloServlet extends HttpServlet {
     private void addToCart(HttpServletRequest request, CartBean cart) throws SQLException {
         int eventId = Integer.parseInt(request.getParameter("eventId"));
         int quantity = Integer.parseInt(request.getParameter("quantity"));
-        String seatNumber = request.getParameter("seatNumber");
-        float price = Float.parseFloat(request.getParameter("price"));
 
         CartItemBean item = new CartItemBean();
         item.setCartId(cart.getId());
         item.setEventId(eventId);
         item.setQuantity(quantity);
-        item.setSeatNumber(seatNumber);
-        item.setPrice(price);
 
-        cartItemDao.addCartItem(item);
+        cartItemDao.addOrUpdateCartItem(item);
     }
 
     private void removeFromCart(HttpServletRequest request, CartBean cart) throws SQLException {
-        int itemId = Integer.parseInt(request.getParameter("itemId"));
-        cartItemDao.deleteCartItem(itemId);
+        int eventId = Integer.parseInt(request.getParameter("eventId"));
+        cartItemDao.deleteCartItemByEventId(eventId);
     }
 
     private void updateCartItem(HttpServletRequest request, CartBean cart) throws SQLException {

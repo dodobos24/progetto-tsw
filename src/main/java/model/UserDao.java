@@ -10,8 +10,8 @@ import java.util.List;
 public class UserDao implements UserDaoInterface {
 
     @Override
-    public void addUser(UserBean user)  throws SQLException {
-        String sql = "INSERT INTO Users (username, password, email, name, surname, admin) VALUES (?, ?, ?, ?, ?, ?)";
+    public void addUser(UserBean user) throws SQLException {
+        String sql = "INSERT INTO Users (username, password, email, first_name, last_name, admin) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -24,29 +24,37 @@ public class UserDao implements UserDaoInterface {
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("Error inserting user: " + e.getMessage());
         }
     }
     
     @Override
-	public UserBean doRetrieve(String username, String password)  throws SQLException {
-    	String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
-    	UserBean user = null;
-    	try (Connection connection = DatabaseUtility.getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql)) {
-	        statement.setString(1, username);
-	        statement.setString(2, password);
+	public UserBean doRetrieve(String email, String password)  throws SQLException {
+    	String sql = "SELECT * FROM Users WHERE email = ? AND password = ?";
+        UserBean user = null;
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, email);
+            statement.setString(2, password);
 
-	        ResultSet rs = statement.executeQuery();
+            ResultSet rs = statement.executeQuery();
 
-	        if (rs.next()) {
-	            user = new UserBean();
-	            user.setUsername(rs.getString("username"));
-	            user.setPassword(rs.getString("password"));
-	        }
-	    } catch (SQLException e) {
+            if (rs.next()) {
+                user = new UserBean();
+                user.setId(rs.getInt("user_id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                user.setNome(rs.getString("first_name"));
+                user.setCognome(rs.getString("last_name"));
+                user.setAdmin(rs.getBoolean("admin"));
+                user.setValid(true);
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
-        } 
-	    return user;
+            throw new SQLException("Error retrieving user: " + e.getMessage());
+        }
+        return user;
 	}
 
     @Override
@@ -66,6 +74,30 @@ public class UserDao implements UserDaoInterface {
                 String surname = resultSet.getString("surname");
                 boolean admin = resultSet.getBoolean("admin");
                 user = new UserBean(id, username, password, email, name, surname, admin);
+            }
+            resultSet.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    public UserBean getUserByUsername(String username) throws SQLException {
+        String sql = "SELECT * FROM Users WHERE username = ?";
+        UserBean user = null;
+        try (Connection connection = DatabaseUtility.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int userId = resultSet.getInt("user_id");
+                String password = resultSet.getString("password");
+                String email = resultSet.getString("email");
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                boolean isAdmin = resultSet.getBoolean("admin");
+                user = new UserBean(userId, username, password, email, firstName, lastName, isAdmin);
             }
             resultSet.close();
         } catch (SQLException e) {

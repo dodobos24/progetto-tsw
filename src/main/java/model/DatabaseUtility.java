@@ -15,6 +15,11 @@ public class DatabaseUtility {
             Context initContext = new InitialContext();
             Context envContext = (Context) initContext.lookup("java:/comp/env");
             dataSource = (DataSource) envContext.lookup("jdbc/mytickez");
+            if (dataSource != null) {
+                System.out.println("DataSource initialized successfully.");
+            } else {
+                System.out.println("Failed to initialize DataSource.");
+            }
         } catch (NamingException e) {
             e.printStackTrace();
         }
@@ -27,4 +32,3 @@ public class DatabaseUtility {
         return dataSource.getConnection();
     }
 }
-

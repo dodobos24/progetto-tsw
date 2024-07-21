@@ -11,19 +11,20 @@ import java.util.List;
 
 public class CartDao implements CartDaoInterface {
 
-    @Override
-    public void addCart(CartBean cart)  throws SQLException {
-        String sql = "INSERT INTO Carts (user_id, created_at) VALUES (?, ?)";
-        try (Connection connection = DatabaseUtility.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            
-            statement.setInt(1, cart.getUserId());
-            statement.setTimestamp(2, Timestamp.valueOf(cart.getCreatedAt()));
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	@Override
+	public void addCart(CartBean cart) throws SQLException {
+	    String sql = "INSERT INTO Carts (user_id, created_at) VALUES (?, ?)";
+	    try (Connection connection = DatabaseUtility.getConnection();
+	         PreparedStatement statement = connection.prepareStatement(sql)) {
+	        
+	        statement.setInt(1, cart.getUserId());
+	        statement.setTimestamp(2, Timestamp.valueOf(cart.getCreatedAt()));
+	        int rowsAffected = statement.executeUpdate();
+	        System.out.println("Rows affected: " + rowsAffected);  // Debug
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
 
     @Override
     public CartBean getCartById(int cartId)  throws SQLException {
@@ -57,14 +58,16 @@ public class CartDao implements CartDaoInterface {
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("cart_id");
                 LocalDateTime createdAt = resultSet.getTimestamp("created_at").toLocalDateTime();
                 cart = new CartBean(id, userId, createdAt);
+                System.out.println("cartId: "+id);
             }
             resultSet.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return cart;
     }
 
@@ -154,9 +157,7 @@ public class CartDao implements CartDaoInterface {
                 int itemId = resultSet.getInt("item_id");
                 int eventId = resultSet.getInt("event_id");
                 int quantity = resultSet.getInt("quantity");
-                String seatNumber = resultSet.getString("seat_number");
-	            float price = resultSet.getFloat("price");
-                CartItemBean item = new CartItemBean(itemId, cartId, eventId, quantity, seatNumber, price);
+                CartItemBean item = new CartItemBean(itemId, cartId, eventId, quantity);
                 items.add(item);
             }
             resultSet.close();

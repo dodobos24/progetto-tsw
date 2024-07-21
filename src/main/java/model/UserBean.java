@@ -46,6 +46,6 @@ public class UserBean implements Serializable {
 	public boolean isAdmin() { return admin; }
 	public void setAdmin(boolean admin) { this.admin=admin; }
 	
-	public boolean isValid() { return valid; }
+	public boolean isValid() { return id>0; }
 	public void setValid(boolean valid) { this.valid=valid; }
 }
