@@ -13,7 +13,7 @@
 <body class="flexCenter">
     <form class="flexCenter flexDirectionColumn gap" id="addEvents" action="../AddEventsServlet" method="post">
 	    <input class="buttonShadow" name="name" type="text" placeholder="Nome" required>
-	    <input class="buttonShadow" name="date" type="text" placeholder="Data" required>
+	    <input class="buttonShadow" name="date" type="text" placeholder="Data (AAAA-MM-GG hh:mm:ss)" required pattern="\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}">
 	    <input class="buttonShadow" name="venue" type="text" placeholder="Luogo" required>
 	    <textarea class="buttonShadow" name="description" placeholder="Descrizione" required></textarea>
 	    <select id="type" name="type" class="buttonShadow" required>
@@ -26,7 +26,7 @@
 	    </select>
 	    <input class="buttonShadow" name="organizer" type="text" placeholder="Organizzatore" required>
 	    <input class="buttonShadow" name="price" type="text" placeholder="Prezzo" required>
-	    <input class="buttonShadow" name="artist_id" type="text" placeholder="Artista(id)" required>
+	    <input class="buttonShadow" name="artist_id" type="text" placeholder="Artista(id)" required pattern="[0-9]">
 	    <input class="buttonShadow" name="image" type="text" placeholder="Immagine(url)">
 	    <input class="buttonShadow button hoverRotate2" type="submit" value="Aggiungi">
 	</form>

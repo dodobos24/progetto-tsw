@@ -9,19 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.EventDao;
+import model.ArtistBean;
+import model.ArtistDao;
 
 /**
- * Servlet implementation class DeleteEventServlet
+ * Servlet implementation class ArtistDetailsServlet
  */
-@WebServlet("/DeleteEventServlet")
-public class DeleteEventServlet extends HttpServlet {
+@WebServlet("/ArtistDetailsServlet")
+public class ArtistDetailsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteEventServlet() {
+    public ArtistDetailsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,26 +30,19 @@ public class DeleteEventServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String returnUrl = request.getParameter("returnUrl");
-        if (returnUrl == null || returnUrl.isEmpty()) {
-            returnUrl = "index.jsp";
-        }
-        
-        System.out.println("Received returnUrl: " + returnUrl); // Debug
-
-        int eventId = Integer.parseInt(request.getParameter("eventId"));
-        EventDao eventDao = new EventDao();
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int artistId = Integer.parseInt(request.getParameter("id"));
         try {
-            eventDao.deleteEvent(eventId);
-            response.sendRedirect(returnUrl);
+            ArtistBean artist = new ArtistBean();
+            artist = ArtistDao.getArtistById(artistId);
+            request.setAttribute("artist", artist);
+            request.getRequestDispatcher("/artistDetails.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
-            response.sendRedirect("index.jsp");
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Database error");
         }
-    }
-
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

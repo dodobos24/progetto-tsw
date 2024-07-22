@@ -16,9 +16,12 @@
     <form class="flexCenter flexDirectionColumn gap" id="registrati" action="RegistrazioneServlet" method="post">
         <input class="buttonShadow" name="name" type="text" placeholder="Nome" required>
         <input class="buttonShadow" name="surname" type="text" placeholder="Cognome" required>
-        <input class="buttonShadow" name="username" type="text" placeholder="Username" required>
-        <input class="buttonShadow" name="email" type="email" placeholder="E-mail" required>
-        <input class="buttonShadow" id="passwordRegistrati" name="password" type="password" placeholder="Password" required>
+        <input class="buttonShadow" name="username" type="text" placeholder="Username" 
+        	required pattern="[A-Za-z0-9]+" title="Username deve contenere solo lettere e numeri">
+        <input class="buttonShadow" name="email" type="email" placeholder="E-mail" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+/.[a-z]{2,}$">
+        <input class="buttonShadow" id="passwordRegistrati" name="password" type="password" placeholder="Password" required
+        	pattern="(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}"
+        	title="La password deve essere di almeno 8 caratteri, contenere almeno una lettera maiuscola, un numero e un carattere speciale">
         <input class="buttonShadow" id="ripetiPasswordRegistrati" name="ripetiPassword" type="password" placeholder="Ripeti password" required>
         <input class="buttonShadow button hoverRotate2" type="submit" value="Registrati">
         <span>Sei già registrato? <a href="login.jsp">Accedi</a></span>

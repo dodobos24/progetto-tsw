@@ -220,13 +220,15 @@ public class EventDao implements EventDaoInterface {
     }
     
     @Override
-    public List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist)  throws SQLException {
+    public List<EventBean> searchEvents(String venue, LocalDateTime date, String eventType, String artist) throws SQLException {
         List<EventBean> events = new ArrayList<>();
         StringBuilder sql = new StringBuilder("SELECT * FROM Events WHERE 1=1");
         if (venue != null && !venue.trim().isEmpty()) sql.append(" AND venue = ?");
         if (date != null) sql.append(" AND event_date = ?");
         if (eventType != null && !eventType.trim().isEmpty()) sql.append(" AND event_type = ?");
         if (artist != null && !artist.trim().isEmpty()) sql.append(" AND artist_id = ?");
+
+        System.out.println("SQL Query: " + sql.toString());
 
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql.toString())) {
@@ -242,15 +244,16 @@ public class EventDao implements EventDaoInterface {
                 statement.setString(index++, eventType);
             }
             if (artist != null && !artist.trim().isEmpty()) {
-                // Assuming artist is a string identifier, otherwise adapt accordingly
                 statement.setString(index++, artist);
             }
 
+            System.out.println("Executing query: " + statement);
+
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String name = resultSet.getString("name");
-                LocalDateTime resultDate = resultSet.getTimestamp("date").toLocalDateTime();
+                int id = resultSet.getInt("event_id");
+                String name = resultSet.getString("event_name");
+                LocalDateTime resultDate = resultSet.getTimestamp("event_date").toLocalDateTime();
                 String resultVenue = resultSet.getString("venue");
                 String description = resultSet.getString("description");
                 String resultEventType = resultSet.getString("event_type");
