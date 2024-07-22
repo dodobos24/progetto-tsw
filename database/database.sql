@@ -42,7 +42,6 @@ CREATE TABLE Tickets (
     event_id INT,
     user_id INT,
     purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (event_id) REFERENCES Events(event_id),
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 

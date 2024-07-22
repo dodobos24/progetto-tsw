@@ -51,7 +51,7 @@ public class LoginServlet extends HttpServlet {
 
             UserBean user = usDao.doRetrieve(email, password);
 
-            if (user != null && user.isValid()) {
+            if (user != null) {
                 HttpSession session = request.getSession(true);
                 session.setAttribute("currentSessionUser", user);
                 response.sendRedirect(request.getContextPath() + "/account.jsp");

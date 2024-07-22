@@ -5,7 +5,7 @@
                 <img src="./img/icon.png" alt="logo">
             </div>
         
-            <div class="nav">
+            <div class="nav" id="nav">
                 <span onclick="window.location.href = 'index.jsp'" class="" id="home">Home</span>
                 <span onclick="window.location.href = 'musica.jsp'" id="musica">Musica</span>
                 <span onclick="window.location.href = 'festival.jsp'" id="festival">Festival</span>
@@ -22,6 +22,11 @@
             </span>
             <span class="account flexCenter">
                 <ion-icon name="person-sharp" id="accountIcon"></ion-icon>
+            </span>
+            <span onclick="toggleThreeLine()" class="threeLine flexCenter flexDirectionColumn">
+                <span id="line1"></span>
+                <span id="line2"></span>
+                <span id="line3"></span>
             </span>
         </div>
     </header>
@@ -49,5 +54,27 @@
                 }
             });
         });
+        let isCross = false;
+
+        function toggleThreeLine() {
+            let line1 = document.getElementById("line1");
+            let line2 = document.getElementById("line2");
+            let line3 = document.getElementById("line3");
+            let nav=document.getElementById("nav")
+
+            if (isCross) {
+                line1.style.transform = "rotate(0deg)";
+                line2.style.display = "block";
+                line3.style.transform = "rotate(0deg)";
+                nav.style.right="-120%"
+            } else {
+                line1.style.transform = "rotate(45deg)";
+                line2.style.display = "none";
+                line3.style.transform = "rotate(-45deg)";
+                nav.style.right="0px"
+            }
+
+            isCross = !isCross;
+        }
     </script>
 </body>

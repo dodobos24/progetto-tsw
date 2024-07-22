@@ -11,7 +11,7 @@ public class UserDao implements UserDaoInterface {
 
     @Override
     public void addUser(UserBean user) throws SQLException {
-        String sql = "INSERT INTO Users (username, password, email, first_name, last_name, admin) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (username, password, email, first_name, last_name, admin) VALUES (?, sha2(?, 256), ?, ?, ?, ?)";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
 
@@ -30,12 +30,14 @@ public class UserDao implements UserDaoInterface {
     
     @Override
 	public UserBean doRetrieve(String email, String password)  throws SQLException {
-    	String sql = "SELECT * FROM Users WHERE email = ? AND password = ?";
+    	String sql = "SELECT * FROM Users WHERE email = ? AND password = sha2(?, 256)";
         UserBean user = null;
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, email);
             statement.setString(2, password);
+            
+            System.out.println("password: "+password);
 
             ResultSet rs = statement.executeQuery();
 
@@ -51,6 +53,8 @@ public class UserDao implements UserDaoInterface {
                 user.setAdmin(rs.getBoolean("admin"));
                 user.setValid(true);
             }
+            
+            System.out.println("password: "+user.getPassword());
         } catch (SQLException e) {
             e.printStackTrace();
             throw new SQLException("Error retrieving user: " + e.getMessage());

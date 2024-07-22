@@ -114,7 +114,7 @@ header .carrello_account{
 	align-items: center;
 }
 
-header .carrello_account .account, header .carrello_account .carrello{
+header .carrello_account .account, header .carrello_account .carrello, header .carrello_account .threeLine{
 	height:60%;
 	aspect-ratio:1/1;
 	cursor:pointer;
@@ -185,7 +185,7 @@ main .firstSection > span{
 
 @keyframes downTop {
 	0% {
-		top:-20;
+		top:-20px;
 	}
 
 	50% {
@@ -193,13 +193,13 @@ main .firstSection > span{
 	}
 	
 	100% {
-		top:-20;
+		top:-20px;
 	}
 }
 
 @keyframes topDown {
 	0% {
-		bottom:-20;
+		bottom:-20px;
 	}
 
 	50% {
@@ -207,7 +207,7 @@ main .firstSection > span{
 	}
 	
 	100% {
-		bottom:-20;
+		bottom:-20px;
 	}
 }
 
@@ -579,23 +579,6 @@ footer .footerContainer .footerSectionTop{
 }
 
 
-
-
-@media (max-width: 760px) {
-    body {
-        font-size: 9px;
-    }
-    header .logo_nav .nav {
-        display: none;
-    }
-}
-
-@media (max-width: 600px) {
-    main .secondUnTerzoScreen div span {
-        flex: 1 1 43%;
-    }
-}
-
 /* Aggiungi uno stile per la sezione degli eventi */
 .eventsSection {
     padding: 20px;
@@ -792,4 +775,59 @@ nav ul li, .adminNav ul li {
 
 .admin-only {
   display: none;
+}
+
+@media (min-width: 761px){
+	
+	.threeLine{
+	display:none;
+}
+}
+@media (max-width: 760px) {
+    body {
+        font-size: 9px;
+    }
+    header .logo_nav .nav {
+    	position: absolute;
+    	height:auto;
+    	width:100px;
+    	flex-direction:column;
+        top:calc(7em - 5px);
+        right:-100%;
+        gap:15px;
+        background-color:var(--pColor);
+        border-radius:0 0 5px 5px;
+        transition: all 0.5s;
+        padding:10px;
+        
+    }
+    .threeLine{
+    	position:relative;
+    	display:flex;
+    }
+    
+    .threeLine span{
+    	background-color:white;
+    	width:60%;
+    	height:3px;
+    	transition: all 0.2s;
+    }
+    
+    .threeLine span:nth-child(1){
+    	position:absolute;
+    	top:10px;
+    	transform-origin:left;
+    }
+    
+    .threeLine span:nth-child(3){
+        position:absolute;
+    	bottom:10px;
+    	transform-origin:left;
+    }
+}
+
+@media (max-width: 600px) {
+    main .secondUnTerzoScreen div span {
+        flex: 1 1 43%;
+    }
 }
