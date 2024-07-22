@@ -1,6 +1,9 @@
 package control;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.CartBean;
 import model.CartDao;
+import model.DatabaseUtility;
 import model.UserBean;
 import model.UserDao;
 
@@ -30,7 +34,7 @@ public class RegistrazioneServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserDao userDao = new UserDao();
+    	UserDao userDao = new UserDao();
         CartDao cartDao = new CartDao();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -38,14 +42,26 @@ public class RegistrazioneServlet extends HttpServlet {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
-        try {
+        try (Connection connection = DatabaseUtility.getConnection()) {
+            boolean isAdmin = false;
+
+            // Controlla se ci sono già utenti nel database
+            String countQuery = "SELECT COUNT(*) FROM users";
+            try (PreparedStatement countStatement = connection.prepareStatement(countQuery)) {
+                ResultSet countResultSet = countStatement.executeQuery();
+                if (countResultSet.next() && countResultSet.getInt(1) == 0) {
+                    // Se non ci sono utenti, rendi il primo utente admin
+                    isAdmin = true;
+                }
+            }
+
             UserBean user = new UserBean();
             user.setUsername(username);
             user.setPassword(password);
             user.setEmail(email);
             user.setNome(name);
             user.setCognome(surname);
-            user.setAdmin(false);
+            user.setAdmin(isAdmin);
 
             userDao.addUser(user);
 

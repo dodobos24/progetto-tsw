@@ -73,7 +73,7 @@ CREATE TABLE CartItems (
     event_id INT,
     quantity INT,
     FOREIGN KEY (cart_id) REFERENCES Carts(cart_id),
-    FOREIGN KEY (event_id) REFERENCES Events(event_id)
+    FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE SET NULL
 );
 
 -- Popolazione artisti

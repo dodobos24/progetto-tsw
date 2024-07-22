@@ -1,0 +1,143 @@
+@charset "ISO-8859-1";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+header, footer {
+    color: #fff;
+    text-align: center;
+    padding: 1em 0;
+}
+
+header h1, footer p {
+    margin: 0;
+}
+
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top:120px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #333;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f4f4f4;
+}
+
+table tr:hover {
+    background-color: #eaeaea;
+}
+
+button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.flexCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gap {
+    gap: 20px;
+}
+
+.adminNav {
+    margin-top: 20px;
+}
+
+.adminNav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.adminNav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+.adminNav ul li a {
+    color: green;
+    text-decoration: none;
+}
+
+.adminNav ul li a:hover {
+    text-decoration: underline;
+}
+
+.btn-rimuovi {
+	color: white;
+    background-color: red;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-aggiungi {
+    color: white;
+    background-color: green;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+th {
+	background-color: #f2f2f2;
+	text-align: left;
+}

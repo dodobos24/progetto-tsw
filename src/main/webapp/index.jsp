@@ -150,7 +150,8 @@
         %>
             <nav class="adminNav">
                 <ul>
-                    <li><a href="admin/addEvents.jsp" style="color:green;">Aggiungi Eventi</a></li>
+                    <li><button class="buttonShadow button hoverRotate1" onclick="window.location.href='admin/addEvents.jsp'">Aggiungi Eventi</button></li>
+                    <li><button class="buttonShadow button hoverRotate1" onclick="window.location.href='admin/users.jsp'">Visualizza Utenti</button></li>
                 </ul>
             </nav>
         <%

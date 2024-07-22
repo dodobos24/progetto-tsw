@@ -113,14 +113,18 @@ public class EventDao implements EventDaoInterface {
 
     @Override
     public void deleteEvent(int id)  throws SQLException {
-        String sql = "DELETE FROM Events WHERE event_id = ?";
+    	String deleteEventSql = "DELETE FROM Events WHERE event_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
-            
-            statement.setInt(1, id);
-            statement.executeUpdate();
+             PreparedStatement deleteEventStatement = connection.prepareStatement(deleteEventSql)) {
+
+            deleteEventStatement.setInt(1, id);
+            int rowsAffected = deleteEventStatement.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new SQLException("No event found with ID " + id);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw e;
         }
     }
 

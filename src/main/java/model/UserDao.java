@@ -60,7 +60,7 @@ public class UserDao implements UserDaoInterface {
 
     @Override
     public UserBean getUserById(int id)  throws SQLException {
-        String sql = "SELECT * FROM Users WHERE id = ?";
+        String sql = "SELECT * FROM Users WHERE user_id = ?";
         UserBean user = null;
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -71,8 +71,8 @@ public class UserDao implements UserDaoInterface {
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
+                String name = resultSet.getString("first_name");
+                String surname = resultSet.getString("last_name");
                 float saldo = resultSet.getFloat("saldo");
                 boolean admin = resultSet.getBoolean("admin");
                 user = new UserBean(id, username, password, email, name, surname, saldo, admin);
@@ -118,12 +118,12 @@ public class UserDao implements UserDaoInterface {
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+                int id = resultSet.getInt("user_id");
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
                 String email = resultSet.getString("email");
-                String name = resultSet.getString("name");
-                String surname = resultSet.getString("surname");
+                String name = resultSet.getString("first_name");
+                String surname = resultSet.getString("last_name");
                 float saldo = resultSet.getFloat("saldo");
                 boolean admin = resultSet.getBoolean("admin");
                 UserBean user = new UserBean(id, username, password, email, name, surname, saldo, admin);
@@ -131,7 +131,9 @@ public class UserDao implements UserDaoInterface {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new SQLException("Errore nel recupero degli utenti: " + e.getMessage());
         }
+        System.out.println("Utenti trovati: " + users.size());
         return users;
     }
 
@@ -140,9 +142,6 @@ public class UserDao implements UserDaoInterface {
         String sql = "UPDATE Users SET username = ?, password = ?, email = ?, first_name = ?, last_name = ?, saldo = ?, admin = ? WHERE user_id = ?";
         try (Connection connection = DatabaseUtility.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-
-            System.out.println("Updating user with ID: " + user.getId());
-            System.out.println("New balance: " + user.getSaldo());
 
             statement.setString(1, user.getUsername());
             statement.setString(2, user.getPassword());
@@ -156,7 +155,7 @@ public class UserDao implements UserDaoInterface {
             int rowsAffected = statement.executeUpdate();
             System.out.println("Rows affected: " + rowsAffected);
         } catch (SQLException e) {
-        	e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
